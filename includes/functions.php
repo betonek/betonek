@@ -155,7 +155,6 @@ function book_search($query)
 		$query);
 
 	return array(
-		"type" => "search",
 		"query" => $query,
 		"found" => $found
 	);

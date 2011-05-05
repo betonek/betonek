@@ -161,14 +161,30 @@ function book_search($query)
 	/* sanitize the query */
 	$query = str_replace(array("\"", "'", "<", ">"), "", $query);
 
-	/* search */
-	$found = SQL::run(
-		"SELECT * FROM books
-		WHERE MATCH(title, author) AGAINST('%s' WITH QUERY EXPANSION)",
+	/* search for titles */
+	$titles = SQL::run(
+		"SELECT
+			type, title, name AS author, titles.id AS title_id, author_id
+		FROM
+			titles
+			RIGHT JOIN authors ON titles.author_id = authors.id
+		WHERE
+			MATCH(title) AGAINST('%s' WITH QUERY EXPANSION);",
+		$query);
+
+	/* search for authors */
+	$authors = SQL::run(
+		"SELECT
+			id AS author_id, name AS author_name
+		FROM
+			authors
+		WHERE
+			MATCH(name) AGAINST('%s' IN BOOLEAN MODE);",
 		$query);
 
 	return array(
-		"query" => $query,
-		"found" => $found
+		"query"   => $query,
+		"titles"  => $titles,
+		"authors" => $authors
 	);
 }

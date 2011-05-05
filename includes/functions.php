@@ -2,6 +2,13 @@
 
 require_once "Mail.php";
 
+/** Send email
+ * @param $subject       email subject
+ * @param $body          body
+ * @param $to            recipient
+ * @param $from          sender
+ * @retval TRUE          success
+ * @retval FALSE         failure */
 function send_email($subject, $body, $to = CFG_ADMIN, $from = CFG_MAIL_FROM)
 {
 	$smtp = Mail::factory('smtp', array(
@@ -11,14 +18,16 @@ function send_email($subject, $body, $to = CFG_ADMIN, $from = CFG_MAIL_FROM)
 		"password"   => CFG_MAIL_PASS
 	));
 
-	return $smtp->send($to, array(
+	$res = $smtp->send($to, array(
 		"Date"         => date("r"),
-		"From"         => $from,
+		"From"         => "Biblioteka <$from>",
 		"To"           => $to,
 		"Subject"      => CFG_MAILPREFIX . " " . $subject,
 		"Content-Type" => "text/plain; charset=UTF-8",
 		),
 		$body);
+
+	return ($res === TRUE);
 }
 
 /***********************************************/
@@ -48,7 +57,7 @@ function user_add($email, $name, $surname, $pass, &$msg)
 		"Aktywuj: " . CFG_URL . "activate.php?uid=$uid\n" .
 		"Odrzuć: " . CFG_URL . "reject.php?uid=$uid\n");
 
-	if ($res === FALSE) {
+	if (!$res) {
 		$msg = "Błąd przy wysyłaniu wiadomości. Napisz email na adres " . CFG_ADMIN;
 		return false;
 	}
@@ -84,13 +93,17 @@ function user_reject($uid)
 	return true;
 }
 
+/** Send password to the user
+ * @param  $email         users email
+ * @retval TRUE           email sent or no such user
+ * @retval FALSE          error while sending email */
 function user_sendpassword($email)
 {
 	$user = SQL::one("SELECT password FROM users WHERE email='%s'", $email);
 	if ($user === FALSE)
-		return false;
+		return TRUE;
 
-	send_email(
+	return send_email(
 		"Przypomnienie",
 		"Twoje hasło to: $user[password]",
 		$email);

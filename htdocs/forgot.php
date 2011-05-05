@@ -6,8 +6,10 @@ lib_cssuse("style.css");
 lib_jsonload('$("#loginform input:first").focus()');
 
 if ($_POST["email"]) {
-	user_sendpassword($_POST["email"]);
-	$msg = "Sprawdź pocztę";
+	if (user_sendpassword($_POST["email"]))
+		$msg = "Sprawdź pocztę";
+	else
+		$msg = "Błąd przy wysyłaniu email";
 }
 
 ?>

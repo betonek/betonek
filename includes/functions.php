@@ -168,7 +168,7 @@ function book_search($query)
 			type, title, name AS author, titles.id AS title_id, author_id
 		FROM
 			titles
-			RIGHT JOIN authors ON titles.author_id = authors.id
+			LEFT JOIN authors ON titles.author_id = authors.id
 		WHERE
             title like '%s';",
 		$query);

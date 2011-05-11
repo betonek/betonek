@@ -12,8 +12,8 @@ var obj_to_str = function(obj){
 
 var callbacks = {
     "search": function(data){
-        for(var key in data.found){
-            GUI.add_item(data.found[key]);
+        for(var key in data.titles){
+            GUI.add_item(data.titles[key]);
         }
     },
     "order": function(data){

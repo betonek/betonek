@@ -12,13 +12,13 @@ var obj_to_str = function(obj){
 
 var callbacks = {
     "search": function(data){
-        for(var key in data.titles){
-            GUI.add_item(data.titles[key]);
+        for(var i=0;i<data.titles.length;++i){
+            GUI.add_item(data.titles[i]);
         }
     },
     "order": function(data){
         GUI.status_changed("order", data.item_id);
-    },
+    }
 };
 
 var callback_dispatcher = function(data, method){
@@ -56,8 +56,8 @@ var B = {
 	/*****************************************/
 	search: function(what, $menu, $book)
 	{
-        B.rpc("search", { query: what });	}
-    
+        B.rpc("search", { query: what });	
+    }
 };
 
 

@@ -160,6 +160,7 @@ function book_search($query)
 {
 	/* sanitize the query */
 	$query = str_replace(array("\"", "'", "<", ">"), "", $query);
+    $query = $query."%";
 
 	/* search for titles */
 	$titles = SQL::run(
@@ -169,7 +170,7 @@ function book_search($query)
 			titles
 			RIGHT JOIN authors ON titles.author_id = authors.id
 		WHERE
-			MATCH(title) AGAINST('%s' WITH QUERY EXPANSION);",
+            title like '%s';",
 		$query);
 
 	/* search for authors */

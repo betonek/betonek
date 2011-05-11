@@ -127,7 +127,7 @@ big_presenters = function(cc, id_prefix){
         };
 
         this.book = function(data){
-            var title = data["title"], id = data['id'], author = data['author'];
+            var title = data["title"], id = data['title_id'], author = data['author'];
             return this.__book(this._cc(id), title, author, id);
         };
         return true;

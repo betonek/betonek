@@ -37,7 +37,7 @@ var config_search_box = function(elem, url, printer){
 
 $(document).ready(function(){
     config_search_box('#search_box', "search_authors", function(author){
-        return $("<span>").append(author.author_name).click(function(evt){
+        return $("<div>").append(author.author_name).click(function(evt){
             $("#add [name=author_id]").val(author.author_id);
         });
     });

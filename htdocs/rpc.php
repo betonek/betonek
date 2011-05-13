@@ -6,9 +6,28 @@ check_login();
 
 /*** RPC functions ***/
 
+/* CRUD for items  */
+
+/* read */
 function rpc_search($p)
 {
 	return res(book_search($p["query"]));
+}
+
+function rpc_search_authors($p)
+{
+	return res(authors_search($p["query"]));
+}
+
+/* create */
+function rpc_add_item_author($p)
+{
+    return res(add_item_author($p["title"], $p["author_name"]));
+}
+
+function rpc_add_item_author_id($p)
+{
+    return res(add_item_author_id($p["title"], $p["author_id"]));
 }
 
 /*********************/

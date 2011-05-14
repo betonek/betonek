@@ -1,4 +1,12 @@
 $(document).ready(function(){
+    var selected_author = undefined; // represents selected author from those in database
+
+    // called to indicate that no author from databse is choosen as author of added item
+    var set_no_selected_author_id = function(){
+        selected_author = undefined;
+        $("#add [name=author_id]").val(undefined);
+    }
+
     $("#search_box [name=query]").autocomplete({
         source: function(request, response){
             $.rpc("search_authors", { 'query': request.term },
@@ -15,15 +23,29 @@ $(document).ready(function(){
                 event.preventDefault();
                 return;
             }
-            $("#add [name=author_id]").val(ui.item.author_id);
-            $("#add [name=author]").val(ui.item.author_name);
+            selected_author = ui.item;
         },
     });
 
-    $("#btn_choose_author").click(function(){
-        $('#search_box').toggle();
-        return false;
+    //TODO: use jQuery's template plugin
+    $("#search_box").hide().find('button[name=submit]').click(function(){
+        if(selected_author){
+            // ordering of setting tese fields is important, because of change handler added
+            // to $("#add [name=author")
+            $("#add [name=author]").val(selected_author.author_name);
+            $("#add [name=author_id]").val(selected_author.author_id);
+        }
+        $(this).parent().dialog("close");
     });
+
+    $("#btn_choose_author").click(function(){
+        set_no_selected_author_id();
+        $("#search_box").dialog({'modal': true});
+    });
+
+    $("form input[name=author]").change(set_no_selected_author_id).// change handler is added because of usage of copy-paste into input
+        keyup(set_no_selected_author_id).
+        keydown(set_no_selected_author_id);
 
     $("form").submit(function(){
         var add = function(author_name, author_id){
@@ -40,7 +62,7 @@ $(document).ready(function(){
             $.rpc(method, data, function(){
                 console.log(arguments[0]);
                 $("#add input").val('');
-//                alert('added succesfully. add next?');
+//                alert('added succesfully. add next?');// inform that item was addes succesfully, and ask whether to add next item
             });
         };
 

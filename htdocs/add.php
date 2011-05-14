@@ -41,8 +41,8 @@ require "header.php";
         <table>
     </form>
     <div id="search_box">
-        <input type="text" name="query"/><span style="background-color: green;" name="error"></span>
-        <div name="result"/>
+        <input type="text" name="query"/>
+        <button name="submit">Zatwierdź wybór</button>
     </div>
 </div>
 

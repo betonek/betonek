@@ -156,6 +156,18 @@ function draw_menu($menu, $addsep = false)
 }
 
 /***********************************************/
+function get_authors_by_name($name){
+    $name = '%'.$name.'%';
+	return SQL::run(
+		"SELECT
+			id AS author_id, name AS author_name
+		FROM
+			authors
+		WHERE
+            name like '%s'",
+		$name);
+}
+
 function book_search($query)
 {
 	/* sanitize the query */
@@ -169,22 +181,51 @@ function book_search($query)
 			titles
 			LEFT JOIN authors ON titles.author_id = authors.id
 		WHERE
-			MATCH(title) AGAINST('%s' WITH QUERY EXPANSION);",
-		$query);
+            title like '%s';",
+		$query."%");
 
 	/* search for authors */
-	$authors = SQL::run(
-		"SELECT
-			id AS author_id, name AS author_name
-		FROM
-			authors
-		WHERE
-			MATCH(name) AGAINST('%s' IN BOOLEAN MODE);",
-		$query);
+	$authors = get_authors_by_name($query);
 
 	return array(
 		"query"   => $query,
 		"titles"  => $titles,
 		"authors" => $authors
 	);
+}
+
+function authors_search($query)
+{
+	$query = str_replace(array("\"", "'", "<", ">"), "", $query);
+    $authors = get_authors_by_name($query);           
+	return array(
+		"query"   => $query,
+		"objects"  => $authors
+	);
+}
+
+// TODO: move Create operations to separate php file
+function _insert_new_item($item_type, $item_title, $author_id)
+{
+    return	SQL::run(
+		"INSERT INTO titles SET type='%s', title='%s', author_id=CAST('%s' AS SIGNED)", // <-- probably can be done without CAST, but I don't know
+		array($item_type, $item_title, $author_id));                                                  // proper formatting parameter 
+
+    return $author_id;// TODO: return some better information here, and define standard for return value of Create operations 
+}
+
+function add_item_author($item_title, $author_name)
+{
+    // todo: transaction support
+	SQL::run("INSERT INTO authors SET name='%s'", $author_name);
+
+    $author_id_data= SQL::one("SELECT max(id) AS new_id FROM authors");
+    $author_id = $author_id_data["new_id"];
+
+    return _insert_new_item('book', $item_title, $author_id);
+}
+
+function add_item_author_id($item_title, $author_id)
+{
+    return _insert_new_item('book', $item_title, $author_id);
 }

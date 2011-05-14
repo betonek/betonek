@@ -46,6 +46,7 @@ $(document).ready(function(){
         },
         select: function(event, ui){
             $("#add [name=author_id]").val(ui.item.author_id);
+            $("#add [name=author]").val(ui.item.author_name);
         },
     });
 

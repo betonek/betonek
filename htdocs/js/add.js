@@ -36,10 +36,17 @@ var config_search_box = function(elem, url, printer){
 }
 
 $(document).ready(function(){
-    config_search_box('#search_box', "search_authors", function(author){
-        return $("<div>").append(author.author_name).click(function(evt){
-            $("#add [name=author_id]").val(author.author_id);
-        });
+    $("#search_box [name=query]").autocomplete({
+        source: function(request, response){
+            $.rpc("search_authors", { 'query': request.term },
+               function(data){
+                    objs = $.map(data.objects, function(obj){ return $.extend(obj, {'label': obj.author_name });} );
+                    response(objs);
+            });
+        },
+        select: function(event, ui){
+            $("#add [name=author_id]").val(ui.item.author_id);
+        },
     });
 
     $("#btn_choose_author").click(function(){

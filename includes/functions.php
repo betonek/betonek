@@ -156,35 +156,51 @@ function draw_menu($menu, $addsep = false)
 }
 
 /***********************************************/
-function book_search($query)
+/* TODO:
+ * search authors and merge results somehow into $titles
+ * support types param
+ * support user_id param
+ * support author_id param
+ * support empty query
+ */
+function book_search($req)
 {
 	/* sanitize the query */
-	$query = str_replace(array("\"", "'", "<", ">"), "", $query);
+	$query = str_replace(array("\"", "'", "<", ">"), "", $req["query"]);
 
-	/* search for titles */
-	$titles = SQL::run(
-		"SELECT
-			type, title, name AS author, titles.id AS title_id, author_id
-		FROM
-			titles
-			LEFT JOIN authors ON titles.author_id = authors.id
-		WHERE
-			MATCH(title) AGAINST('%s' WITH QUERY EXPANSION);",
-		$query);
+	if ($req["engine"] == "simple") {
+		$titles = SQL::run(
+			"SELECT
+				type, title, name AS author, titles.id AS title_id, author_id
+			FROM
+				titles
+				LEFT JOIN authors ON titles.author_id = authors.id
+			WHERE
+				title LIKE '%s%%';",
+			$query);
+	} else { /* == full */
+		$titles = SQL::run(
+			"SELECT
+				type, title, name AS author, titles.id AS title_id, author_id
+			FROM
+				titles
+				LEFT JOIN authors ON titles.author_id = authors.id
+			WHERE
+				MATCH(title) AGAINST('%s' WITH QUERY EXPANSION);",
+			$query);
+	}
 
-	/* search for authors */
-	$authors = SQL::run(
+	/*$authors = SQL::run(
 		"SELECT
 			id AS author_id, name AS author_name
 		FROM
 			authors
 		WHERE
 			MATCH(name) AGAINST('%s' IN BOOLEAN MODE);",
-		$query);
+		$query);*/
 
 	return array(
 		"query"   => $query,
-		"titles"  => $titles,
-		"authors" => $authors
+		"titles"  => $titles
 	);
 }

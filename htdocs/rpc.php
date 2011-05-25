@@ -13,6 +13,24 @@ function rpc_search($p)
 	return res(book_search($p));
 }
 
+function rpc_title_view($p)
+{
+	if ($p["item_id"]) {
+		$title_id = title_get_id_by_item_id($p["item_id"]);
+
+		if (!$title_id)
+			return err(1, "title for given item_id not found");
+	} else {
+		$title_id = $p["title_id"];
+	}
+
+	$view = title_view($title_id);
+	if (!$view)
+		return err(2, "error in fetching title view - not found?");
+	else
+		return res($view);
+}
+
 /*********************/
 
 function err($code, $msg)

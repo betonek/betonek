@@ -204,3 +204,76 @@ function book_search($req)
 		"titles"  => $titles
 	);
 }
+
+/** Get title id by item
+ * @param item_id       item id
+ * @return integer      title id
+ * @retval 0            item not found
+ */
+function title_get_id_by_item_id($item_id)
+{
+	$owner = SQL::one("SELECT title_id FROM owners WHERE id=%u", $item_id);
+
+	if ($owner)
+		return intval($owner["title_id"]);
+	else
+		return 0;
+}
+
+/** Get title by its id or item id
+ * @param title_id               title id
+ * @return array                 see RPC API
+ * @retval FALSE                 not found
+ */
+function title_view($title_id)
+{
+	/* get basic title view info */
+	$view = SQL::one("
+		SELECT
+			type, title, name AS author, titles.id AS title_id, author_id
+		FROM
+			titles
+			LEFT JOIN authors ON titles.author_id = authors.id
+		WHERE
+			titles.id = %u;", $title_id);
+
+	if (!$view)
+		return FALSE;
+
+	/* get owners and items */
+	$items = SQL::run("
+		SELECT
+			owners.id AS item_id, user_id, CONCAT(users.name, ' ', users.surname) AS user, users.email AS user_email
+		FROM
+			owners
+			LEFT JOIN users ON owners.user_id = users.id
+		WHERE title_id = %u;", $title_id);
+	$view["owners"] = $items;
+
+	/* determine is_owner */
+	$view["is_owner"] = false;
+	$login_uid = Session::get("uid");
+
+	foreach ($items as $item) {
+		if ($item["user_id"] == $login_uid) {
+			$view["is_owner"] = true;
+			break;
+		}
+	}
+
+	/* get average mark */
+	$avgmark = SQL::one("SELECT AVG(mark) AS m FROM ratings WHERE title_id = %u;", $title_id);
+	$view["average_mark"] = floatval($avgmark["m"]);
+
+	/* get comments */
+	$comments = SQL::run("
+		SELECT
+			comment, user_id, CONCAT(users.name, ' ', users.surname) AS user, users.email AS user_email
+		FROM
+			comments
+			LEFT JOIN users ON comments.user_id = users.id
+		WHERE title_id = %u;", $title_id);
+	$view["comments"] = $comments;
+
+	return $view;
+}

@@ -11,7 +11,6 @@ CREATE TABLE IF NOT EXISTS `comments` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `title_id` int(10) unsigned NOT NULL,
   `user_id` int(10) unsigned NOT NULL,
-  `parent_id` int(10) unsigned DEFAULT NULL,
   `comment` text CHARACTER SET utf8 COLLATE utf8_bin,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=latin1;
@@ -20,7 +19,6 @@ CREATE TABLE IF NOT EXISTS `owners` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `title_id` int(10) unsigned NOT NULL,
   `user_id` int(10) unsigned NOT NULL,
-  `comments` text CHARACTER SET utf8 COLLATE utf8_bin,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=latin1;
 

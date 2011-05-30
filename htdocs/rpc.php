@@ -31,6 +31,11 @@ function rpc_title_view($p)
 		return res($view);
 }
 
+function rpc_title_rate($p)
+{
+	return res(title_rate($p["title_id"], $p["mark"]));
+}
+
 /*********************/
 
 function err($code, $msg)

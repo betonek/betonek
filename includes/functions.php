@@ -277,3 +277,37 @@ function title_view($title_id)
 
 	return $view;
 }
+
+/** Submit title rate on behalf of the user logged in
+ * @param title_id        title id
+ * @param mark            title mark: integer 0-10; if -1, delete user rating
+ */
+function title_rate($title_id, $mark)
+{
+	/* sanitize */
+	$mark = intval($mark);
+	if ($mark < -1)
+		$mark = 0;
+	else if ($mark > 10)
+		$mark = 10;
+
+	if ($mark == -1) {
+		SQL::run(
+			"DELETE FROM ratings WHERE title_id=%u AND user_id=%u;",
+			array($title_id, Session::get("uid")));
+	} else {
+		SQL::run(
+			"INSERT INTO
+				ratings (title_id, user_id, mark)
+			VALUES
+				(%u, %u, %u)
+			ON DUPLICATE KEY UPDATE
+				mark=VALUES(mark)",
+			array($title_id, Session::get("uid"), $mark));
+	}
+
+	return array(
+		"title_id"    => $title_id,
+		"mark"        => $mark
+	);
+}

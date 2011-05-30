@@ -27,7 +27,8 @@ CREATE TABLE IF NOT EXISTS `ratings` (
   `title_id` int(10) unsigned NOT NULL,
   `user_id` int(10) unsigned NOT NULL,
   `mark` decimal(10,0) NOT NULL,
-  PRIMARY KEY (`id`)
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `title_id` (`title_id`,`user_id`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=latin1;
 
 CREATE TABLE IF NOT EXISTS `session` (

@@ -36,6 +36,11 @@ function rpc_title_rate($p)
 	return res(title_rate($p["title_id"], $p["mark"]));
 }
 
+function rpc_title_comment($p)
+{
+	return res(title_comment($p["title_id"], $p["comment"]));
+}
+
 /*********************/
 
 function err($code, $msg)

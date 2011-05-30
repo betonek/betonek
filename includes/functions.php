@@ -311,3 +311,32 @@ function title_rate($title_id, $mark)
 		"mark"        => $mark
 	);
 }
+
+/** Submit title comment on behalf of the user logged in
+ * @param title_id        title id
+ * @param comment         comment; if empty, delete user comment from database
+ */
+function title_comment($title_id, $comment)
+{
+	$comment = trim(strip_tags($comment));
+
+	if (!$comment) {
+		SQL::run(
+			"DELETE FROM comments WHERE title_id=%u AND user_id=%u;",
+			array($title_id, Session::get("uid")));
+	} else {
+		SQL::run(
+			"INSERT INTO
+				comments (title_id, user_id, comment)
+			VALUES
+				(%u, %u, '%s')
+			ON DUPLICATE KEY UPDATE
+				comment = VALUES(comment)",
+			array($title_id, Session::get("uid"), $comment));
+	}
+
+	return array(
+		"title_id"    => $title_id,
+		"comment"     => $comment
+	);
+}

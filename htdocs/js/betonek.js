@@ -56,7 +56,7 @@ var B = {
 	/*****************************************/
 	search: function(what, $menu, $book)
 	{
-        B.rpc("search", { query: what });	
+        B.rpc("search", { query: what, engine: "simple" });	
     }
 };
 

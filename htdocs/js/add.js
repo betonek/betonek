@@ -33,7 +33,7 @@ $(document).ready(function(){
         if(selected_author){
             // ordering of setting tese fields is important, because of change handler added
             // to $("#add [name=author")
-            $("#add [name=author]").val(selected_author.author_name);
+            $("#add [name=author]").val(selected_author.author);
             $("#add [name=author_id]").val(selected_author.author_id);
         }
         $(this).parent().dialog("close");

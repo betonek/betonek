@@ -64,6 +64,7 @@ $(document).ready(function(){
                 $("#add input").val('');
 //                alert('added succesfully. add next?');// inform that item was addes succesfully, and ask whether to add next item
             });
+            return false;
         };
 
         var author_id = $("#add [name=author_id]").eq(0).val(), 

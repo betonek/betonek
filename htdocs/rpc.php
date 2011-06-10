@@ -53,10 +53,15 @@ function rpc_item_add_final($p)
 {
     if(array_key_exists("title", $p) AND array_key_exists("author_id", $p)){
         return res(add_item_author_id($p["title"], $p["author_id"]));
-    } else if(array_key_exists("title", $p) AND array_key_exists("author")){
+    } else if(array_key_exists("title", $p) AND array_key_exists("author", $p)){
         throw new Exception("Not supported");
     }
     throw new Exception("Not supported");
+}
+
+function rpc_author_search($p)
+{
+    return res(author_search($p["query"]));
 }
 
 /*********************/

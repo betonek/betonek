@@ -55,12 +55,11 @@ $(document).ready(function(){
             if(author_id) 
                 author_data = {'author_id': author_id};
             else 
-                author_data = {'author_name': author_name};
+                author_data = {'author': author_name};
 
             $.extend(data, author_data);
-            var method = author_id && 'add_item_author_id' || 'add_item_author';
             
-            $.rpc(method, data, function(){
+            $.rpc("item_add_final", data, function(){
                 console.log(arguments[0]);
                 $("#add input").val('');
 //                alert('added succesfully. add next?');// inform that item was addes succesfully, and ask whether to add next item

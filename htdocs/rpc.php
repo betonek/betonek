@@ -41,6 +41,24 @@ function rpc_title_comment($p)
 	return res(title_comment($p["title_id"], $p["comment"]));
 }
 
+
+function has_only_keys($arr, $keys){
+    throw new Exception("not implemented yet");
+}
+// INFO - works only in $p contains only following combinations of parameters:
+// {title, author}
+// {title, author_id}
+// TODO: implement and use has_only_keys function
+function rpc_item_add_final($p)
+{
+    if(array_key_exists("title", $p) AND array_key_exists("author_id", $p)){
+        return res(add_item_author_id($p["title"], $p["author_id"]));
+    } else if(array_key_exists("title", $p) AND array_key_exists("author")){
+        throw new Exception("Not supported");
+    }
+    throw new Exception("Not supported");
+}
+
 /*********************/
 
 function err($code, $msg)

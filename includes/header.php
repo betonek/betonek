@@ -15,7 +15,7 @@ else
 
 /* setup CSS */
 lib_cssuse("style.css");
-
+lib_cssuse("ui-lightness/jquery-ui-1.8.12.custom.css");
 /* userbar menus */
 $menu1 = array(
 	"index.php"		=> "Szukaj",

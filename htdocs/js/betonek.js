@@ -2,20 +2,6 @@
  * Betonek
  */
 
-/*
- * MW TODO:
- * 1. change name of property "id" (property of items (books, movies etc) returned from backed) to "iid" (or sq or)
- * so that it wouldn't be confused with DOM's objects id
- * 2. make RPC connector object responsible for not performing more that one ajax call at the time (in future refactor so that
- * amount of available synchronous ajax calls would be customizable, the best it would be if the script  would detect maximal 
- * amount of synchronous ajax calls
- * 3. why is there owners table, while can be only FK to user in BOOK table?
- * 4. TODO: locking on borrowing
- * 5. think about inheritance of items (i propose all models in one table :))
- * 6. TODO: fk to user in book.borrower
- * 7. TODO: join my helper object :)
- * 8. bug: when searching on my database for "listy" returned "jakis tytol" (probably because same author)
- * */
 
 var obj_to_str = function(obj){
     var ret = [];
@@ -26,13 +12,13 @@ var obj_to_str = function(obj){
 
 var callbacks = {
     "search": function(data){
-        for(var key in data.found){
-            GUI.add_item(data.found[key]);
+        for(var i=0;i<data.titles.length;++i){
+            GUI.add_item(data.titles[i]);
         }
     },
     "order": function(data){
         GUI.status_changed("order", data.item_id);
-    },
+    }
 };
 
 var callback_dispatcher = function(data, method){
@@ -70,8 +56,8 @@ var B = {
 	/*****************************************/
 	search: function(what, $menu, $book)
 	{
-        B.rpc("search", { query: what });	}
-    
+        B.rpc("search", { query: what });	
+    }
 };
 
 
@@ -141,7 +127,7 @@ big_presenters = function(cc, id_prefix){
         };
 
         this.book = function(data){
-            var title = data["title"], id = data['id'], author = data['author'];
+            var title = data["title"], id = data['title_id'], author = data['author'];
             return this.__book(this._cc(id), title, author, id);
         };
         return true;

@@ -1,5 +1,6 @@
 $(document).ready(function(){
     var selected_author = undefined; // represents selected author from those in database
+    var proposed_auhors = undefined;
 
     // called to indicate that no author from databse is choosen as author of added item
     var set_no_selected_author_id = function(){
@@ -9,16 +10,16 @@ $(document).ready(function(){
 
     $("#search_box [name=query]").autocomplete({
         source: function(request, response){
-            $.rpc("search_authors", { 'query': request.term },
+            $.rpc("author_search", { 'query': request.term },
                function(data){
-                    objs = $.map(data.objects, function(obj){ return $.extend(obj, {'label': obj.author_name });} );
-                    if(!objs.length)
-                        objs = [{'label': "No elements matching criteria: " + request.term, "REPRESENTS_NULL": true}];
-                    response(objs);
+                    proposed_auhors= $.map(data.authors, function(obj){ return $.extend(obj, {'label': obj.author });} );
+                    if(!proposed_auhors.length)
+                        proposed_auhors = [{'label': "No elements matching criteria: " + request.term, "REPRESENTS_NULL": true}];
+                    response(proposed_auhors);
             });
         },
         select: function(event, ui){
-            if(objs.length == 1 && objs[0].REPRESENTS_NULL){
+            if(proposed_auhors.length == 1 && proposed_auhors[0].REPRESENTS_NULL){
                 alert("no authors found found");
                 event.preventDefault();
                 return;

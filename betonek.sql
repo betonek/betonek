@@ -41,7 +41,7 @@ CREATE TABLE IF NOT EXISTS `session` (
 
 CREATE TABLE IF NOT EXISTS `titles` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `type` enum('book','audio','other') CHARACTER SET utf8 COLLATE utf8_bin NOT NULL,
+  `type` varchar(32) COLLATE utf8_polish_ci NOT NULL,
   `title` varchar(255) COLLATE utf8_polish_ci NOT NULL,
   `author_id` int(10) unsigned NOT NULL,
   PRIMARY KEY (`id`),

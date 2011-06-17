@@ -341,32 +341,57 @@ function title_comment($title_id, $comment)
 	);
 }
 
-// TODO: move Create operations to separate php file
-function _insert_new_item($item_type, $item_title, $author_id)
+/** Add new title
+ * @param title          title name
+ * @param type           title type
+ * @param author_id      author id
+ * @return title id
+ */
+function title_add($title, $type, $author_id)
 {
-    return	SQL::run(
-		"INSERT INTO titles SET type='%s', title='%s', author_id=CAST('%s' AS SIGNED)", // <-- probably can be done without CAST, but I don't know
-		array($item_type, $item_title, $author_id));                                                  // proper formatting parameter 
+	$title = str_replace(array("\"", "'", "<", ">"), "", $title);
 
-    return $author_id;// TODO: return some better information here, and define standard for return value of Create operations 
+	/* SQL::run() returns last insert id for insert queries */
+	return SQL::run(
+		"INSERT INTO titles SET
+			title='%s',
+			type='%s',
+			author_id=%u",
+		array($title, $type, $author_id));
 }
 
-// not used yet
-function add_item_author($item_title, $author_name)
+/** Add new item to users library
+ * @param title_id      title id
+ * @return owner id
+ */
+function item_add($title_id)
 {
-    // todo: transaction support
-	SQL::run("INSERT INTO authors SET name='%s'", $author_name);
+	$title_id = intval($title_id);
 
-    $author_id_data= SQL::one("SELECT max(id) AS new_id FROM authors");
-    $author_id = $author_id_data["new_id"];
+	/* SQL::run() returns last insert id for insert queries */
+	return SQL::run(
+		"INSERT INTO owners SET
+			title_id=%u,
+			user_id=%u",
+		array($title_id, Session::get("uid")));
 
-    return _insert_new_item('book', $item_title, $author_id);
+	return array(
+		"item_id"   => $item_id,
+		"title_id"  => $title_id,
+		"author_id" => author_get_id_by_title_id($title_id)
+	);
 }
 
-function add_item_author_id($item_title, $author_id)
+/** Add new author
+ * @param name     author name
+ * @return author id
+ */
+function author_add($name)
 {
-    // TODO: implement so that it would be compatibile with Rpc-api (return parameters are incompatibile)
-    return _insert_new_item('book', $item_title, $author_id);
+	$name = str_replace(array("\"", "'", "<", ">"), "", $name);
+
+	/* SQL::run() returns last insert id for insert queries */
+	return SQL::run("INSERT INTO authors SET name='%s'", $name);
 }
 
 /** Search author by name
@@ -387,4 +412,19 @@ function author_search($query)
 		"query"   => $query,
 		"authors" => $authors
 	);
+}
+
+/** Get author id by title id
+ * @param title_id      title id
+ * @return integer      author id
+ * @retval 0            item not found
+ */
+function author_get_id_by_title_id($title_id)
+{
+	$title = SQL::one("SELECT author_id FROM titles WHERE id=%u", $title_id);
+
+	if ($title)
+		return intval($title["author_id"]);
+	else
+		return 0;
 }

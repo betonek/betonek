@@ -4,7 +4,10 @@ require "./examples.php";
 require "../includes/lib/lib.php";
 
 require_once "functions.php";
-check_login();
+
+/* used for rpc testing */
+if (!defined('CFG_RPC_NOAUTH'))
+	check_login();
 
 /*** RPC functions ***/
 
@@ -61,7 +64,7 @@ function rpc_item_add_final($p)
 
 function rpc_author_search($p)
 {
-    return res(author_search($p["query"]));
+	return res(author_search($p["query"]));
 }
 
 /*********************/

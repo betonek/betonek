@@ -369,25 +369,22 @@ function add_item_author_id($item_title, $author_id)
     return _insert_new_item('book', $item_title, $author_id);
 }
 
-function get_authors_by_name($name){
-    $name = '%'.$name.'%';
-    return SQL::run(
-    "SELECT
-        id AS author_id, name AS author
-    FROM
-        authors
-    WHERE
-        name like '%s'",
-    $name);
-}
-
-
+/** Search author by name
+ * @param query    beginning of author name; if null, return all
+ */
 function author_search($query)
 {
-    $query = str_replace(array("\"", "'", "<", ">"), "", $query);
-    $authors = get_authors_by_name($query);
-    return array(
-        "query" => $query,
-        "authors" => $authors
-    );
+	$query = str_replace(array("\"", "'", "<", ">"), "", $query);
+
+	$authors = SQL::run(
+		"SELECT
+			id AS author_id, name AS author
+		FROM
+			authors
+		WHERE name LIKE '%%%s%%'", $query);
+
+	return array(
+		"query"   => $query,
+		"authors" => $authors
+	);
 }

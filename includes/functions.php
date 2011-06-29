@@ -374,12 +374,29 @@ function item_add($title_id)
 			title_id=%u,
 			user_id=%u",
 		array($title_id, Session::get("uid")));
+}
 
-	return array(
-		"item_id"   => $item_id,
-		"title_id"  => $title_id,
-		"author_id" => author_get_id_by_title_id($title_id)
-	);
+/** Deletes item from users library
+ * @param item_id         item id
+ * @return title_id
+ * @retval 0              item not found in users library
+ */
+function item_delete($item_id)
+{
+	$item_id = intval($item_id);
+
+	/* get title_id */
+	$title_id = intval(SQL::one(
+		"SELECT title_id FROM owners WHERE id=%d AND user_id=%d",
+		array($item_id, Session::get("uid"))));
+
+	if ($title_id <= 0)
+		return 0;
+
+	/* remove */
+	SQL::run("DELETE FROM owners WHERE id=%u", $item_id);
+
+	return $title_id;
 }
 
 /** Add new author

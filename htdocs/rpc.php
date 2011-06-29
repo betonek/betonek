@@ -22,14 +22,14 @@ function rpc_title_view($p)
 		$title_id = title_get_id_by_item_id($p["item_id"]);
 
 		if (!$title_id)
-			return err(1, "title for given item_id not found");
+			return err(2, "title for given item_id not found");
 	} else {
 		$title_id = $p["title_id"];
 	}
 
 	$view = title_view($title_id);
 	if (!$view)
-		return err(2, "error in fetching title view - not found?");
+		return err(3, "error in fetching title view - not found?");
 	else
 		return res($view);
 }
@@ -62,22 +62,29 @@ function rpc_item_add_final($p)
 			$title_id = title_add($p["title"], $p["type"], $author_id);
 			$item_id = item_add($title_id);
 		} else {
-			return err(3, "title and type given, but no author information");
+			return err(4, "title and type given, but no author information");
 		}
 	} else {
-		return err(4, "no valid title information given");
+		return err(5, "no valid title information given");
 	}
 
-	return array(
+	return res(array(
 		"item_id"   => $item_id,
 		"title_id"  => $title_id,
 		"author_id" => $author_id
-	);
+	));
 }
 
 function rpc_author_search($p)
 {
 	return res(author_search($p["query"]));
+}
+
+function rpc_item_delete($p)
+{
+	return res(array(
+		"title_id" => item_delete($p["item_id"])
+	));
 }
 
 /*********************/
@@ -113,7 +120,7 @@ if (function_exists($handler)) {
 } else if (array_key_exists($method, $examples)) {
 	$out = res($examples[$method]);
 } else {
-	$out = err(1, "Invalid method");
+	$out = err(1, "Invalid method: $method");
 }
 
 header("Content-Type: application/json-rpc");

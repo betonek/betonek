@@ -5,6 +5,7 @@ check_login();
 
 /* load JavaScript, run B.init() on startup */
 lib_jsuse("betonek.js");
+lib_jsuse("lib/dump.js");
 lib_jsonload("B.init()");
 
 /* set title */
@@ -16,6 +17,7 @@ else
 /* setup CSS */
 lib_cssuse("style.css");
 lib_cssuse("ui-lightness/jquery-ui-1.8.12.custom.css");
+
 /* userbar menus */
 $menu1 = array(
 	"index.php"		=> "Szukaj",

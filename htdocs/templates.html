@@ -1,0 +1,18 @@
+<script id="tpl_bookview" type="text/x-jquery-tmpl">
+<h1>${title}</h1>
+<h3>${author}</h3>
+
+Średnia ocena: ${average_mark}<br /><br />
+
+Mają:<br />
+<ul>
+{{each owners}}
+	<li><a href="mailto:${$value.user_email}">${$value.user}</a></li>
+{{/each}}
+</ul>
+
+Komentarze:<br />
+{{each comments}}
+<p>${$value.comment} <i>(${$value.user})</i></p>
+{{/each}}
+</script>

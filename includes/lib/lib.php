@@ -64,6 +64,8 @@ function lib_js()
 	$str .= '<!--' . "\n";
 	$str .= '$(document).ready(function() {' . "\n";
 
+	$str .= "if (typeof main === \"function\") main();\n";
+
 	foreach ($GLOBALS["ONLOAD"] as $todo)
 		$str .= $todo . ";\n";
 

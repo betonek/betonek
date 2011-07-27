@@ -6,6 +6,7 @@ check_login();
 /* load JavaScript, run B.init() on startup */
 lib_jsuse("betonek.js");
 lib_jsuse("lib/dump.js");
+lib_jsuse("lib/jquery.tmpl.js");
 lib_jsonload("B.init()");
 
 /* set title */
@@ -39,6 +40,8 @@ $menu2 = array(
 	<?= lib_css() ?>
 </head>
 <body>
+
+<iframe id="templates" src="templates.html"></iframe>
 
 <div id="userbar">
 	<ul id="ub_nav">

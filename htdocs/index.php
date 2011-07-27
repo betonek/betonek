@@ -5,17 +5,17 @@ $TITLE = "Szukaj";
 require "header.php";
 ?>
 
-<div id="searchbox_big">
+<div id="searchutils_big">
 	<table><tr>
-	<td id="sbb_left">
-		<div id="sbbl_top">&nbsp;</div>
+	<td id="sub_left">
+		<div id="subl_top">&nbsp;</div>
 
-		<div id="sbbl_middle">
+		<div id="subl_middle">
 			<img src="gfx/logo.png" width="300" height="49" />
-			<div id="sbblm_name"><?= CFG_TITLE ?></div>
+			<div id="sublm_name"><?= CFG_TITLE ?></div>
 		</div>
 
-		<div id="sbbl_bottom">
+		<div id="subl_bottom">
 			<ul>
 				<li class="first"><a href="#">Przeglądaj</a></li>
 				<li><a href="#">Najlepsze</a></li>
@@ -24,10 +24,10 @@ require "header.php";
 		</div>
 	</td>
 
-	<td id="sbb_middle">&nbsp;</td>
+	<td id="sub_middle">&nbsp;</td>
 
-	<td id="sbb_right">
-		<div id="sbbr_top">
+	<td id="sub_right">
+		<div id="subr_top">
 			<ul>
 				<li class="first"><a href="#">Książki</a></li>
 				<li><a href="#">Muzyka</a></li>
@@ -35,16 +35,16 @@ require "header.php";
 			</ul>
 		</div>
 
-		<div id="sbbr_middle">
-			<span id="sbbrm_box">
+		<div id="subr_middle">
+			<span id="subrm_box" class="searchbox">
 				<form action="search.php">
-					<input type="textbox" class="searchterm" name="q" />
-					<span class="searchbutton">Szukaj</span>
+					<input type="textbox" id="searchterm" name="q" />
+					<span id="searchbutton">Szukaj</span>
 				</form>
 			</span>
 		</div>
 
-		<div id="sbbr_bottom">&nbsp;</div>
+		<div id="subr_bottom">&nbsp;</div>
 	</td>
 	</tr></table>
 </div>

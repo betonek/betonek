@@ -2,15 +2,22 @@ var BV = {
 /** DOM root */
 $root: undefined,
 
-init: function(root)
+/** Initialize Book View
+ * @param root        DOM node to draw in
+ */
+init: function(root, title_id, event_name)
 {
 	BV.$root = $(root);
+},
 
-	/* TODO: not here? */
-	$(document).bind("betTitleSelected", function(e, data)
+/** Load and show given title */
+view: function(title_id)
+{
+	BV.$root.empty();
+
+	$.rpc("title_view", { title_id: title_id }, function(d)
 	{
-		BV.$root.empty();
-		BV.$root.text("Selected " + data.title);
+		B.tpl("tpl_bookview", d).appendTo(BV.$root);
 	});
 }
 };

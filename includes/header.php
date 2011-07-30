@@ -41,7 +41,9 @@ $menu2 = array(
 </head>
 <body>
 
-<iframe id="templates" src="templates.html"></iframe>
+<span id="templates">
+<?php include "../htdocs/templates.html" ?>
+</span>
 
 <div id="userbar">
 	<ul id="ub_nav">

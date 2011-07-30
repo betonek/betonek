@@ -23,11 +23,5 @@ getparam: function(name)
 	return decodeURI(
 		(RegExp('[?|&]' + name + '=' + '(.+?)(&|$)').exec(window.location.search) || [,null])[1]
 	);
-},
-
-/** Draw template with data */
-tpl: function(tpl_name, data, opts)
-{
-	return $("#templates").contents().find("#" + tpl_name).tmpl(data, opts);
 }
 };

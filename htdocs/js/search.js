@@ -20,6 +20,11 @@ init: function(root)
 
 search: function(query)
 {
+	var typeaggr = {};
+
+	/* make new list */
+	BS.$root.empty();
+
 	$.rpc("search", {
 		query: query,
 		engine: "simple"
@@ -27,23 +32,39 @@ search: function(query)
 		/* announce search results */
 		$(document).trigger("BS/SearchResult", d);
 
-		/* make new list */
-		BS.$root.empty();
-		$("<ul>").appendTo(BS.$root);
+		/* make root accordion */
+		$("#tpl_search_results").tmpl(d).appendTo(BS.$root);
+		BS.$root.accordion();
 
-		/* TODO: template */
+		/* draw results */
 		$.each(d.titles, function(k, v)
 		{
-			var e = $("<li>");
-			e.data(v);
-			e.text(v.author + ": " + v.title);
-			e.appendTo(BS.$root);
+			/* draw */
+			$("#tpl_search_title")
+				.tmpl(v)
+				.data(v)
+				.appendTo("#search_" + v.type);
+
+			/* per-type data aggregation */
+			if (typeaggr[v.type] == undefined)
+				typeaggr[v.type] = { counter: 0 };
+
+			typeaggr[v.type].counter++;
 		});
 
-		/* announce title selections */
-		BS.$root.find("li").click(function(e) {
-			$(document).trigger("BS/TitleSelected", $(e.target).data("title_id"));
+		/* update counters in headers */
+		$.each(typeaggr, function(k, v)
+		{
+			$("#search_" + k + "_counter").text(v.counter);
 		});
+
+		/* monitor for title selections */
+		BS.$root.find("li").click(BS.selected);
 	});
+},
+
+selected: function(e)
+{
+	$(document).trigger("BS/TitleSelected", $(e.target).data("title_id"));
 }
 };

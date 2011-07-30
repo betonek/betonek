@@ -176,7 +176,7 @@ function book_search($req)
 				titles
 				LEFT JOIN authors ON titles.author_id = authors.id
 			WHERE
-				title LIKE '%s%%';",
+				title LIKE '%%%s%%';",
 			$query);
 	} else { /* == full */
 		$titles = SQL::run(

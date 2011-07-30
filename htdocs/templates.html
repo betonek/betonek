@@ -13,6 +13,24 @@ Mają:<br />
 
 Komentarze:<br />
 {{each comments}}
-<p>${$value.comment} <i>(${$value.user})</i></p>
+	<p>${$value.comment} <i>(${$value.user})</i></p>
 {{/each}}
+</script>
+
+<!-- search.js //-->
+<script id="tpl_search_results" type="text/x-jquery-tmpl">
+<h3><a href="#">Książki (<span id="search_book_counter">0</span>)</a></h3>
+<ul id="search_book"></ul>
+
+<h3><a href="#">Audiobook (<span id="search_audiobook_counter">0</span>)</a></h3>
+<ul id="search_audiobook"></ul>
+
+<h3><a href="#">Muzyka (<span id="search_audio_counter">0</span>)</a></h3>
+<ul id="search_audio"></ul>
+
+<h3><a href="#">Film (<span id="search_film_counter">0</span>)</a></h3>
+<ul id="search_film"></ul>
+</script>
+<script id="tpl_search_title" type="text/x-jquery-tmpl">
+<li>${author}: ${title}</li>
 </script>

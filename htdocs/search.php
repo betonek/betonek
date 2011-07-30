@@ -29,14 +29,14 @@ var main = function()
 	/* pass click on results to the book view */
 	$(document).bind("BS/TitleSelected", function(e, title_id) { BV.view(title_id); });
 
-	/* use query as page title */
+	/* use query as page title, update #searchcount */
 	$(document).bind("BS/SearchResult", function(e, search)
 	{
 		if (!$(document).data("orig_title"))
 			$(document).data("orig_title", document.title);
 
-		document.title = $(document).data("orig_title")
-			+ ": " + search.query + " (znaleziono: " + search.titles.length + ")";
+		document.title = $(document).data("orig_title") + ": " + search.query;
+		$("#searchcount").text(search.titles.length);
 	});
 
 	/* pass submits in query field to search */
@@ -69,6 +69,9 @@ var main = function()
 			<span id="susrm_box" class="searchbox">
 				<input type="textbox" id="searchterm" name="q" />
 				<span id="searchbutton">Szukaj</span>
+			</span>
+			<span id="susrm_count">
+				Znaleziono: <span id="searchcount">0</span>
 			</span>
 		</div>
 	</td>

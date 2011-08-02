@@ -21,7 +21,7 @@ if ($_POST["email"]) {
 </head>
 <body>
 
-<div id="loginbox">
+<div class="loginbox formbox">
 	<fieldset>
 		<legend>Przypomnij hasło</legend>
 

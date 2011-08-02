@@ -26,7 +26,7 @@ if ($_POST["email"]) {
 </head>
 <body>
 
-<div id="loginbox">
+<div class="loginbox formbox">
 	<fieldset>
 		<legend>Utwórz nowe konto</legend>
 

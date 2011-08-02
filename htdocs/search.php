@@ -66,7 +66,7 @@ var main = function()
 
 	<td id="sus_right">
 		<div id="susr_middle">
-			<span id="susrm_box" class="searchbox">
+			<span id="susrm_box" class="searchbox formbox">
 				<input type="textbox" id="searchterm" name="q" />
 				<span id="searchbutton">Szukaj</span>
 			</span>

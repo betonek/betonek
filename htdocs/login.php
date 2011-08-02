@@ -6,7 +6,6 @@ lib_cssuse("style.css");
 /* login handling */
 require "lib/SHA256.php";
 lib_jsuse("lib/sha256.js");
-lib_jsuse("login.js");
 
 /* setup crypt salt */
 if (Session::get("salt_time") < time() - 3600) {
@@ -17,7 +16,6 @@ if (Session::get("salt_time") < time() - 3600) {
 }
 
 $salt = intval(Session::get("salt"));
-lib_jsonload("BL.init($salt)");
 
 /* handle login attempt */
 if ($_POST["email"]) {
@@ -35,6 +33,7 @@ if ($_POST["email"]) {
 	}
 }
 
+/* if logged in, go to the requested page */
 if (Session::get("uid")) {
 	$back_url = Session::get("back_url");
 	if (!$back_url)
@@ -53,7 +52,29 @@ if (Session::get("uid")) {
 </head>
 <body>
 
-<div id="loginbox">
+<script type="text/javascript">
+var main = function()
+{
+	var salt = <?= $salt ?>;
+
+	/* focus on first field for user convenience */
+	$("#loginform input[name='email']").focus();
+
+	/* crypt the password on form submission */
+	$("#loginform").submit(function()
+	{
+		var $pass = $("#loginform input[name='pass']");
+		var crypted = $.sha256("" + salt + $pass.val());
+
+		$pass.val("");
+		$("#loginform input[name='crypted']").val(crypted);
+
+		return true;
+	});
+}
+</script>
+
+<div class="loginbox formbox">
 	<fieldset>
 		<legend>Zaloguj się</legend>
 

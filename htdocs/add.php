@@ -6,7 +6,7 @@ $TITLE = "Dodaj nową rzecz do wypożyczenia";
 require "header.php";
 ?>
 
-<div id="searchbox">
+<div class="searchbox formbox">
 	<table><tr>
 	<td id="sb_left">
 		<div id="sbl_middle">

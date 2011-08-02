@@ -27,7 +27,7 @@ if ($_POST["pass"]) {
 
 ?>
 
-<div id="loginbox">
+<div class="loginbox formbox">
 	<fieldset>
 		<legend>Zmień hasło</legend>
 

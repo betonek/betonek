@@ -26,10 +26,10 @@ span.info { display: block; display: inline-block;
 
 span.errmsg { color: #f00; }
 
-.searchbox table { width: 100%; padding: 10px; }
-.searchbox table td:first-child { width: 30%; text-align: right; padding-right: 15px; }
-.searchbox input { border: 1px solid #ccc; margin: 3px; }
-.searchbox input:focus { border-color: #fb8; }
+.formbox table { width: 100%; padding: 10px; }
+.formbox table td:first-child { width: 30%; text-align: right; padding-right: 15px; }
+.formbox input { border: 1px solid #ccc; margin: 3px; }
+.formbox input:focus { border-color: #fb8; }
 
 .logobox a { text-decoration: none; }
 .logobox a:hover { text-decoration: none; }
@@ -54,7 +54,7 @@ span.errmsg { color: #f00; }
 #index_links ul li { display: inline; margin-left: 10px; }
 
 /* login box */
-#loginbox { width: 35%; min-width: 400px; margin: 10% auto 0 auto; }
+.loginbox { width: 35%; min-width: 400px; margin: 10% auto 0 auto; }
 
 /* search elements */
 #searchterm { height: 40px; width: 75%; font-size: 20px; }

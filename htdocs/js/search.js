@@ -34,7 +34,7 @@ search: function(query)
 
 		/* make root accordion */
 		$("#tpl_search_results").tmpl(d).appendTo(BS.$root);
-		BS.$root.accordion();
+		//BS.$root.accordion();
 
 		/* draw results */
 		$.each(d.titles, function(k, v)

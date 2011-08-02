@@ -36,7 +36,7 @@ require "header.php";
 		</div>
 
 		<div id="subr_middle">
-			<span id="subrm_box" class="searchbox">
+			<span id="subrm_box" class="searchbox formbox">
 				<form action="search.php">
 					<input type="textbox" id="searchterm" name="q" />
 					<span id="searchbutton">Szukaj</span>

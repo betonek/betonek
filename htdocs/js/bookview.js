@@ -17,7 +17,7 @@ view: function(title_id)
 
 	$.rpc("title_view", { title_id: title_id }, function(d)
 	{
-		B.tpl("tpl_bookview", d).appendTo(BV.$root);
+		$("#tpl_bookview").tmpl(d).appendTo(BV.$root);
 	});
 }
 };

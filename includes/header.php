@@ -6,6 +6,7 @@ check_login();
 /* load JavaScript, run B.init() on startup */
 lib_jsuse("betonek.js");
 lib_jsuse("lib/dump.js");
+lib_jsuse("lib/rpc.js");
 lib_jsuse("lib/jquery.tmpl.js");
 lib_jsonload("B.init()");
 

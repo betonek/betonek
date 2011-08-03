@@ -4,6 +4,12 @@ require "../includes/lib/lib.php";
 $TITLE = "Szukaj";
 require "header.php";
 ?>
+<script type="text/javascript">
+var main = function()
+{
+	$("#searchbutton").click(function() { $("#searchform").submit(); });
+};
+</script>
 
 <div id="searchutils_big">
 	<table><tr>
@@ -37,7 +43,7 @@ require "header.php";
 
 		<div id="subr_middle">
 			<span id="subrm_box" class="searchbox formbox">
-				<form action="search.php">
+				<form action="search.php" id="searchform">
 					<input type="textbox" id="searchterm" name="q" />
 					<span id="searchbutton">Szukaj</span>
 				</form>

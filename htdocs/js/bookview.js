@@ -15,6 +15,9 @@ view: function(title_id)
 {
 	BV.$root.empty();
 
+	if (!title_id)
+		return;
+
 	$.rpc("title_view", { title_id: title_id }, function(d)
 	{
 		$("#tpl_bookview").tmpl(d).appendTo(BV.$root);

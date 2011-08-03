@@ -6,18 +6,47 @@ require "../includes/functions.php";
 $TITLE = "Szukaj";
 require "header.php";
 
-lib_jsuse("lib/rpc.js");
 lib_jsuse("search.js");
 lib_jsuse("bookview.js");
 
 ?>
 <script type="text/javascript">
+/** Run when user hits search */
 var search = function()
 {
-	BS.search($("#searchterm").val());
+	var query = $("#searchterm").val();
+
+	/* update hash param */
+	B.setparam("q", query);
+
+	/* update title */
+	document.title = $(document).data("orig_title");
+
+	/* send the query */
+	BS.search(query);
 };
 
-/* main function */
+/** Run when search query comes back */
+var searchresults = function(e, search)
+{
+	/* use query as the page title */
+	document.title = $(document).data("orig_title") + ": " + search.query;
+
+	/* update #searchcount */
+	$("#searchcount").text(search.titles.length);
+};
+
+/** Run when user clicks on book in search results */
+var titleselected = function(e, title_id)
+{
+	/* notify bookview.js */
+	BV.view(title_id);
+
+	/* update param */
+	B.setparam("t", title_id);
+};
+
+/** Main function */
 var main = function()
 {
 	/*
@@ -25,29 +54,24 @@ var main = function()
 	 */
 	BS.init('#sw-results');
 	BV.init('#sw-bookview');
+	$(document).data("orig_title", document.title);
 
-	/* pass click on results to the book view */
-	$(document).bind("BS/TitleSelected", function(e, title_id) { BV.view(title_id); });
-
-	/* use query as page title, update #searchcount */
-	$(document).bind("BS/SearchResult", function(e, search)
-	{
-		if (!$(document).data("orig_title"))
-			$(document).data("orig_title", document.title);
-
-		document.title = $(document).data("orig_title") + ": " + search.query;
-		$("#searchcount").text(search.titles.length);
-	});
-
-	/* pass submits in query field to search */
+	/* pass submit of the query field to search */
 	$("#searchbutton").click(search);
 	$("#searchterm").keydown(function(e) { if (e.keyCode == 13) search(); });
 
+	/* when search comes back, update some elements */
+	$(document).bind("BS/SearchResult", searchresults);
+
+	/* pass click on search results to the book view */
+	$(document).bind("BS/TitleSelected", titleselected);
+
 	/*
-	 * do search from this GET query
+	 * finally, do the work from this page load
 	 */
 	$("#searchterm").val(B.getparam("q"));
-	search();
+	$("#searchbutton").click();
+	BV.view(B.getparam("t"));
 };
 </script>
 

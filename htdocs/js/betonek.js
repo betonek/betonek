@@ -1,11 +1,13 @@
-/** Main Betonek file - mostly libraries and shared code */
+/*
+ * main Betonek file - mostly libraries and shared code
+ */
+
 var B = {
 
-/* delme? */
 init: function()
 {
 	/* select first input box */
-	$("form:first input:first").focus();
+	$("input:first").focus();
 },
 
 /** Make a JSON-RPC call */
@@ -17,11 +19,50 @@ rpc: function(method, args, cb, errcb)
 	});
 },
 
-/** Returns a GET parameter value */
+/** Regular expression for matching hash/GET parameter */
+_pre: function(name)
+{
+	/* FIXME: handle empty p, eg ...&p=&a=blah */
+	return RegExp('(^|&)' + name + '=' + '(.+?)(&.*|$)');
+},
+
+/** Returns a parameter value */
 getparam: function(name)
 {
-	return decodeURI(
-		(RegExp('[?|&]' + name + '=' + '(.+?)(&|$)').exec(window.location.search) || [,null])[1]
-	);
+	var val;
+
+	/* extracts parameter from given string */
+	var extract = function(src)
+	{
+		var dst = B._pre(name).exec(src.substr(1));
+		if (dst)
+			return decodeURIComponent(dst[2].replace(/\+/g, ' '));
+		else
+			return undefined;
+	};
+
+	/* first try URL hash */
+	val = extract(window.location.hash);
+
+	/* otherwise URL GET param */
+	if (!val)
+		val = extract(window.location.search);
+
+	return val;
+},
+
+/** Set hash parameter value */
+setparam: function(name, value)
+{
+	var hash = window.location.hash.substr(1);
+
+	/* delete old value */
+	hash = hash.replace(B._pre(name), '$1$3').replace(/&$/, '');
+
+	/* set new value */
+	hash += '&' + name + '=' + encodeURIComponent(value);
+
+	/* store */
+	window.location.hash = '#' + hash.replace(/^&/, '');
 }
 };

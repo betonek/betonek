@@ -121,11 +121,7 @@ span.errmsg { color: #f00; }
 #susrm_count { position: relative; top: 38px; color: #aaa; font-size: 12px; }
 #suslm_name { color: #ccc; }
 
-#searchwindow {
-	position: absolute;
-	left: 0; right: 0; top: 140px;
-	height: 100%;
-}
-	#sw-results { position: absolute; left: 0; height: 100%; width: 25%; padding: 10px 1%; }
-	#sw-bookview { position: absolute; right: 0; left: 27%; width: 71%; padding: 10px 1%; }
+	#sw-results { position: absolute; left: 0; top: 145px; bottom: 0; width: 25%; padding: 10px 1%; }
+	#sw-bookview { padding: 10px 1% 10px 29%; }
+
 

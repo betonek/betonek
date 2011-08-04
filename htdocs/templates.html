@@ -19,18 +19,21 @@ Komentarze:<br />
 
 <!-- search.js //-->
 <script id="tpl_search_results" type="text/x-jquery-tmpl">
-<h3><a href="#">Książki (<span id="search_book_counter">0</span>)</a></h3>
-<ul id="search_book"></ul>
+<span class="sr_acc">
+<h3><a href="#">Książki (<span id="sr_book_counter">0</span>)</a></h3>
+<ul id="sr_book"></ul>
 
-<h3><a href="#">Audiobook (<span id="search_audiobook_counter">0</span>)</a></h3>
-<ul id="search_audiobook"></ul>
+<h3><a href="#">Audiobook (<span id="sr_audiobook_counter">0</span>)</a></h3>
+<ul id="sr_audiobook"></ul>
 
-<h3><a href="#">Muzyka (<span id="search_audio_counter">0</span>)</a></h3>
-<ul id="search_audio"></ul>
+<h3><a href="#">Muzyka (<span id="sr_audio_counter">0</span>)</a></h3>
+<ul id="sr_audio"></ul>
 
-<h3><a href="#">Film (<span id="search_film_counter">0</span>)</a></h3>
-<ul id="search_film"></ul>
+<h3><a href="#">Film (<span id="sr_film_counter">0</span>)</a></h3>
+<ul id="sr_film"></ul>
+</span>
 </script>
+
 <script id="tpl_search_title" type="text/x-jquery-tmpl">
 <li>${author}: ${title}</li>
 </script>

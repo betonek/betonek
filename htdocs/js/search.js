@@ -32,9 +32,8 @@ search: function(query)
 		/* announce search results */
 		$(document).trigger("BS/SearchResult", d);
 
-		/* make root accordion */
+		/* attach template */
 		$("#tpl_search_results").tmpl(d).appendTo(BS.$root);
-		//BS.$root.accordion();
 
 		/* draw results */
 		$.each(d.titles, function(k, v)
@@ -43,7 +42,7 @@ search: function(query)
 			$("#tpl_search_title")
 				.tmpl(v)
 				.data(v)
-				.appendTo("#search_" + v.type);
+				.appendTo("#sr_" + v.type);
 
 			/* per-type data aggregation */
 			if (typeaggr[v.type] == undefined)
@@ -55,8 +54,11 @@ search: function(query)
 		/* update counters in headers */
 		$.each(typeaggr, function(k, v)
 		{
-			$("#search_" + k + "_counter").text(v.counter);
+			$("#sr_" + k + "_counter").text(v.counter);
 		});
+
+		/* make accordion */
+		BS.$root.find(".sr_acc").accordion({fillSpace: true});
 
 		/* monitor for title selections */
 		BS.$root.find("li").click(BS.selected);

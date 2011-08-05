@@ -35,13 +35,13 @@ require_once "Session.php";
 
 SQL::connect();
 Session::start();
-Session::set("abc", "def");
 
 /*********************************/
 
 $GLOBALS["STYLES"] = array();
 $GLOBALS["SCRIPTS"] = array();
 $GLOBALS["FOOTERS"] = array();
+$GLOBALS["TEMPLATES"] = array();
 
 /*********************************/
 
@@ -87,9 +87,20 @@ function lib_css()
 	return $str;
 }
 
+function lib_tpl()
+{
+	foreach ($GLOBALS["TEMPLATES"] as $tpl => $ignore)
+		$str .= file_get_contents($tpl) . "\n";
+
+	return $str;
+}
+
 function lib_jsuse($path)
 {
 	$GLOBALS["SCRIPTS"]["js/$path"] = true;
+
+	if (file_exists("../htdocs/js/$path.html"))
+		$GLOBALS["TEMPLATES"]["../htdocs/js/$path.html"] = true;
 }
 
 function lib_jsonload($what, $tag = false)

@@ -101,6 +101,9 @@ function lib_jsuse($path)
 
 	if (file_exists("../htdocs/js/$path.html"))
 		$GLOBALS["TEMPLATES"]["../htdocs/js/$path.html"] = true;
+
+	if (file_exists("../htdocs/js/$path.css"))
+		$GLOBALS["STYLES"]["js/$path.css"] = true;
 }
 
 function lib_jsonload($what, $tag = false)

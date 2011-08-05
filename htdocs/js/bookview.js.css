@@ -1,0 +1,4 @@
+div.bv_header { height: 150px; padding-top: 10px; }
+	img.bv_icon { float: left; border: none; margin: 0 20px 20px 0; }
+	table.bv_ratings td { width: 130px; }
+	table.bv_ratings { color: #888; font-size: small; }

@@ -8,6 +8,8 @@ lib_jsuse("betonek.js");
 lib_jsuse("lib/dump.js");
 lib_jsuse("lib/rpc.js");
 lib_jsuse("lib/jquery.tmpl.js");
+lib_jsuse("lib/blockUI.js");
+lib_jsuse("lib/raty.js");
 lib_jsonload("B.init()");
 
 /* set title */
@@ -43,7 +45,7 @@ $menu2 = array(
 <body>
 
 <span id="templates">
-<?php include "../htdocs/templates.html" ?>
+<?= lib_tpl() ?>
 </span>
 
 <div id="userbar">

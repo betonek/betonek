@@ -261,6 +261,11 @@ function title_view($title_id)
 		}
 	}
 
+	/* get user mark */
+	$rating = SQL::one("SELECT mark FROM ratings WHERE title_id = %u AND user_id = %u;",
+		array($title_id, $login_uid));
+	$view["mark"] = intval($rating["mark"]);
+
 	/* get average mark */
 	$avgmark = SQL::one("SELECT AVG(mark) AS m FROM ratings WHERE title_id = %u;", $title_id);
 	$view["average_mark"] = floatval($avgmark["m"]);
@@ -280,18 +285,18 @@ function title_view($title_id)
 
 /** Submit title rate on behalf of the user logged in
  * @param title_id        title id
- * @param mark            title mark: integer 0-10; if -1, delete user rating
+ * @param mark            title mark: integer 1-5; if 0, delete user rating
  */
 function title_rate($title_id, $mark)
 {
 	/* sanitize */
 	$mark = intval($mark);
-	if ($mark < -1)
+	if ($mark < 1)
 		$mark = 0;
-	else if ($mark > 10)
-		$mark = 10;
+	else if ($mark > 5)
+		$mark = 5;
 
-	if ($mark == -1) {
+	if ($mark == 0) {
 		SQL::run(
 			"DELETE FROM ratings WHERE title_id=%u AND user_id=%u;",
 			array($title_id, Session::get("uid")));

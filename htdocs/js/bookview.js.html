@@ -1,0 +1,28 @@
+<script id="tpl_bookview" type="text/x-jquery-tmpl">
+<span class="bv">
+
+<div class="bv_header">
+	<img class="bv_icon" src="gfx/icon-${type}.png" />
+	<h1>${title}</h1>
+	<h3>${author}</h3>
+
+	<table class="bv_ratings"><tr>
+		<td>Średnia ocena: <div id="bv_raty_avg"></div></td>
+		<td>Twoja ocena:<div id="bv_raty"></div></td>
+	</tr></table>
+</div>
+
+Mają:<br />
+<ul>
+{{each owners}}
+	<li><a href="mailto:${$value.user_email}">${$value.user}</a></li>
+{{/each}}
+</ul>
+
+Komentarze:<br />
+{{each comments}}
+	<p>${$value.comment} <i>(${$value.user})</i></p>
+{{/each}}
+
+</span>
+</script>

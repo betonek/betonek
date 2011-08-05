@@ -3,11 +3,11 @@
 require "../includes/lib/lib.php";
 require "../includes/functions.php";
 
-$TITLE = "Szukaj";
-require "header.php";
-
 lib_jsuse("search.js");
 lib_jsuse("bookview.js");
+
+$TITLE = "Szukaj";
+require "header.php";
 
 ?>
 <script type="text/javascript">
@@ -15,6 +15,9 @@ lib_jsuse("bookview.js");
 var search = function()
 {
 	var query = $("#searchterm").val();
+
+	/* block UI */
+	$.blockUI({message: null});
 
 	/* update hash param */
 	B.setparam("q", query);
@@ -29,6 +32,8 @@ var search = function()
 /** Run when search query comes back */
 var searchresults = function(e, search)
 {
+	$.unblockUI();
+
 	/* use query as the page title */
 	document.title = $(document).data("orig_title") + ": " + search.query;
 

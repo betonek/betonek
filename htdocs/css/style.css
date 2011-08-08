@@ -13,6 +13,11 @@ body, td, a, p { font-family: arial,sans-serif; }
 a:visited { color: blue; }
 a.graylink { color: gray; }
 
+a.user {
+	background: scroll transparent url("../gfx/mail.png") 100% 50% no-repeat;
+	padding-right: 23px;
+}
+
 /*************************************/
 
 fieldset { padding: 15px; margin: 15px; border: 1px solid #ccc; text-align: center; }

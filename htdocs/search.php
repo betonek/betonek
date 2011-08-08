@@ -17,7 +17,7 @@ var search = function()
 	var query = $("#searchterm").val();
 
 	/* block UI */
-	$.blockUI({message: null});
+	//$.blockUI({message: null});
 
 	/* update hash param */
 	B.setparam("q", query);
@@ -32,7 +32,7 @@ var search = function()
 /** Run when search query comes back */
 var searchresults = function(e, search)
 {
-	$.unblockUI();
+	//$.unblockUI();
 
 	/* use query as the page title */
 	document.title = $(document).data("orig_title") + ": " + search.query;

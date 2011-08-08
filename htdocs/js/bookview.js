@@ -54,6 +54,9 @@ view: function(title_id)
 			start: d.average_mark,
 			readOnly: true
 		});
+
+		/* make comment submission */
+		$("#bv_write_comment_button").click(BV.comment);
 	});
 },
 
@@ -63,6 +66,16 @@ rate: function(mark)
 	{
 		$.fn.raty.start(d.average_mark, '#bv_raty_avg');
 	});
-}
+},
 
+comment: function()
+{
+	$.rpc("title_comment", { title_id: BV.title_id, comment: $("#bv_write_comment").val() });
+	BV.reload();
+},
+
+reload: function()
+{
+	BV.view(BV.title_id);
+}
 };

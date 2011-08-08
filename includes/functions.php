@@ -273,11 +273,12 @@ function title_view($title_id)
 	/* get comments */
 	$comments = SQL::run("
 		SELECT
-			comment, user_id, CONCAT(users.name, ' ', users.surname) AS user, users.email AS user_email
+			comment, date, user_id, CONCAT(users.name, ' ', users.surname) AS user, users.email AS user_email
 		FROM
 			comments
 			LEFT JOIN users ON comments.user_id = users.id
-		WHERE title_id = %u;", $title_id);
+		WHERE title_id = %u
+		ORDER BY date ASC;", $title_id);
 	$view["comments"] = $comments;
 
 	return $view;
@@ -336,9 +337,9 @@ function title_comment($title_id, $comment)
 	} else {
 		SQL::run(
 			"INSERT INTO
-				comments (title_id, user_id, comment)
+				comments (title_id, user_id, comment, date)
 			VALUES
-				(%u, %u, '%s')
+				(%u, %u, '%s', NOW())
 			ON DUPLICATE KEY UPDATE
 				comment = VALUES(comment)",
 			array($title_id, Session::get("uid"), $comment));

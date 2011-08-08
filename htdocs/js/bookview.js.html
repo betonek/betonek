@@ -12,17 +12,49 @@
 	</tr></table>
 </div>
 
-Mają:<br />
-<ul>
-{{each owners}}
-	<li><a href="mailto:${$value.user_email}">${$value.user}</a></li>
-{{/each}}
-</ul>
+<hr />
 
-Komentarze:<br />
-{{each comments}}
-	<p>${$value.comment} <i>(${$value.user})</i></p>
-{{/each}}
+<div class="bv_owners">
+	<h3>Kto ma?</h3>
+
+{{if owners.length}}
+	<ul>
+	{{each owners}}
+		<li><a class="user" href="mailto:${$value.user_email}">${$value.user}</a></li>
+	{{/each}}
+	</ul>
+{{else}}
+	Aktualnie nikt nie ma tego tytułu
+{{/if}}
+</div>
+
+{{if comments.length}}
+<hr />
+<div class="bv_comments">
+	<h3>Komentarze</h3>
+
+	{{each comments}}
+	<div class="bv_comment ui-corner-all">
+		<div class="bvc_header">
+			<span class="bvc_user">
+				<a href="mailto:${$value.user_email}">${$value.user}</a>
+			<span>
+			<span class="bvc_date">${$value.date}<span>
+		</div>
+		<div class="bvc_content">${$value.comment}</div>
+	</div>
+	{{/each}}
+</div>
+{{/if}}
+
+<hr />
+<div class="bv_write">
+	<h3>Napisz swój komentarz</h3>
+
+	<textarea id="bv_write_comment"></textarea>
+	<button id="bv_write_comment_button">Wyślij</button>
+	<p>Pisząc nowy komentarz do tego samego tytułu zastąpisz stary</p>
+</div>
 
 </span>
 </script>

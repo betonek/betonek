@@ -12,6 +12,7 @@ CREATE TABLE IF NOT EXISTS `comments` (
   `title_id` int(10) unsigned NOT NULL,
   `user_id` int(10) unsigned NOT NULL,
   `comment` text CHARACTER SET utf8 COLLATE utf8_bin,
+  `date` datetime NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `title_id` (`title_id`,`user_id`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=latin1;

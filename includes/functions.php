@@ -311,9 +311,13 @@ function title_rate($title_id, $mark)
 			array($title_id, Session::get("uid"), $mark));
 	}
 
+	/* get average mark */
+	$avgmark = SQL::one("SELECT AVG(mark) AS m FROM ratings WHERE title_id = %u;", $title_id);
+
 	return array(
-		"title_id"    => $title_id,
-		"mark"        => $mark
+		"title_id"      => $title_id,
+		"mark"          => $mark,
+		"average_mark"  => floatval($avgmark["m"])
 	);
 }
 

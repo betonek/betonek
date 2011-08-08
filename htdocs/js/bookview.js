@@ -39,10 +39,7 @@ view: function(title_id)
 
 			start: d.mark,
 			targetKeep: true,
-			click: function(score)
-			{
-				alert('wybrałeś ' + score);
-			}
+			click: BV.rate
 		});
 
 		/* attach average rating */
@@ -57,7 +54,15 @@ view: function(title_id)
 			start: d.average_mark,
 			readOnly: true
 		});
+	});
+},
 
+rate: function(mark)
+{
+	$.rpc("title_rate", { title_id: BV.title_id, mark: mark }, function(d)
+	{
+		$.fn.raty.start(d.average_mark, '#bv_raty_avg');
 	});
 }
+
 };

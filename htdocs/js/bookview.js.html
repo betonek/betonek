@@ -24,8 +24,22 @@
 	{{/each}}
 	</ul>
 {{else}}
+	<p class="bvo_none">
 	Aktualnie nikt nie ma tego tytułu
+	</p>
 {{/if}}
+
+{{if is_owner}}
+	<div class="bvo_ops" id="bvo_del">
+		Już nie mam
+	</div>
+{{else}}
+	<div class="bvo_ops" id="bvo_add">
+		Mam to!
+	</div>
+{{/if}}
+
+
 </div>
 
 {{if comments.length}}

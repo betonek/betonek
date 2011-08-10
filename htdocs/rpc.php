@@ -80,10 +80,10 @@ function rpc_author_search($p)
 	return res(author_search($p["query"]));
 }
 
-function rpc_item_delete($p)
+function rpc_item_del($p)
 {
 	return res(array(
-		"title_id" => item_delete($p["item_id"])
+		"title_id" => item_del($p["title_id"])
 	));
 }
 

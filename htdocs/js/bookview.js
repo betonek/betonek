@@ -57,6 +57,10 @@ view: function(title_id)
 
 		/* make comment submission */
 		$("#bv_write_comment_button").click(BV.comment);
+
+		/* add/del */
+		$("#bvo_add").click(BV.add);
+		$("#bvo_del").click(BV.del);
 	});
 },
 
@@ -77,5 +81,17 @@ comment: function()
 reload: function()
 {
 	BV.view(BV.title_id);
+},
+
+add: function()
+{
+	$.rpc("item_add_final", { title_id: BV.title_id });
+	BV.reload();
+},
+
+del: function()
+{
+	$.rpc("item_del", { title_id: BV.title_id });
+	BV.reload();
 }
 };

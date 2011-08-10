@@ -387,24 +387,17 @@ function item_add($title_id)
 }
 
 /** Deletes item from users library
- * @param item_id         item id
+ * @param title_id        title id
  * @return title_id
  * @retval 0              item not found in users library
  */
-function item_delete($item_id)
+function item_del($title_id)
 {
-	$item_id = intval($item_id);
-
-	/* get title_id */
-	$title_id = intval(SQL::one(
-		"SELECT title_id FROM owners WHERE id=%d AND user_id=%d",
-		array($item_id, Session::get("uid"))));
-
-	if ($title_id <= 0)
-		return 0;
+	$title_id = intval($title_id);
 
 	/* remove */
-	SQL::run("DELETE FROM owners WHERE id=%u", $item_id);
+	SQL::run("DELETE FROM owners WHERE title_id=%u AND user_id=%d",
+		array($title_id, Session::get("uid")));
 
 	return $title_id;
 }

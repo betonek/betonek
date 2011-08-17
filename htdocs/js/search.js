@@ -18,7 +18,10 @@ init: function(root)
 	BS.$root = $(root);
 },
 
-search: function(query)
+/** Make search query and display the results
+ * @param click_first      simulate click on first result
+ */
+search: function(query, click_first)
 {
 	var typeaggr = {};
 
@@ -46,25 +49,44 @@ search: function(query)
 
 			/* per-type data aggregation */
 			if (typeaggr[v.type] == undefined)
-				typeaggr[v.type] = { counter: 0 };
-
-			typeaggr[v.type].counter++;
+				typeaggr[v.type] = { counter: 1 };
+			else
+				typeaggr[v.type].counter++;
 		});
 
-		/* update counters in headers */
-		$.each(typeaggr, function(k, v)
+		/* accordion part to open on init */
+		var acc_start = -1;
+
+		/* count number of titles in each type category */
+		$("#sr_acc ul").each(function(i)
 		{
-			$("#sr_" + k + "_counter").text(v.counter);
+			/* number of titles */
+			var count = $(this).find("li").length;
+
+			/* candidate for acc_start */
+			if (acc_start < 0 && count > 0)
+				acc_start = i;
+
+			/* set header counter */
+			$("#" + $(this).attr("id") + "_ctr")
+				.text($(this).find("li").length);
 		});
 
 		/* make accordion */
-		BS.$root.find(".sr_acc").accordion({fillSpace: true});
+		$("#sr_acc").accordion({
+			active: acc_start < 0 ? 0 : acc_start,
+			fillSpace: true
+		});
 
 		/* monitor for title selections */
 		BS.$root.find("li").click(BS.selected);
+
+		if (click_first)
+			BS.$root.find("li").first().click();
 	});
 },
 
+/** Handles click on a title */
 selected: function(e)
 {
 	$(document).trigger("BS/TitleSelected", $(e.target).data("title_id"));

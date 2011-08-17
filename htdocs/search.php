@@ -11,13 +11,13 @@ require "header.php";
 
 ?>
 <script type="text/javascript">
+/** If true, load first search result */
+var load_first_title = false;
+
 /** Run when user hits search */
 var search = function()
 {
 	var query = $("#searchterm").val();
-
-	/* block UI */
-	//$.blockUI({message: null});
 
 	/* update hash param */
 	B.setparam("q", query);
@@ -26,19 +26,22 @@ var search = function()
 	document.title = $(document).data("orig_title");
 
 	/* send the query */
-	BS.search(query);
+	BS.search(query, load_first_title);
 };
 
 /** Run when search query comes back */
 var searchresults = function(e, search)
 {
-	//$.unblockUI();
-
 	/* use query as the page title */
 	document.title = $(document).data("orig_title") + ": " + search.query;
 
+	var result_count = search.titles.length;
+
 	/* update #searchcount */
-	$("#searchcount").text(search.titles.length);
+	$("#searchcount").text(result_count);
+
+	/* enable load_first_title after first success */
+	load_first_title = true;
 };
 
 /** Run when user clicks on book in search results */
@@ -74,9 +77,13 @@ var main = function()
 	/*
 	 * finally, do the work from this page load
 	 */
+	if (B.getparam("t") > 0)
+		BV.view(B.getparam("t"));
+	else
+		load_first_title = true;
+
 	$("#searchterm").val(B.getparam("q"));
 	$("#searchbutton").click();
-	BV.view(B.getparam("t"));
 };
 </script>
 

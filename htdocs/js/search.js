@@ -79,16 +79,19 @@ search: function(query, click_first)
 		});
 
 		/* monitor for title selections */
-		BS.$root.find("li").click(BS.selected);
+		$("#sr_acc li").click(BS.selected);
 
 		if (click_first)
-			BS.$root.find("li").first().click();
+			$("#sr_acc li").first().click();
 	});
 },
 
 /** Handles click on a title */
 selected: function(e)
 {
-	$(document).trigger("BS/TitleSelected", $(e.target).data("title_id"));
+	$("#sr_acc li").removeClass("sr_selected");
+	$(this).addClass("sr_selected");
+
+	$(document).trigger("BS/TitleSelected", $(this).data("title_id"));
 }
 };

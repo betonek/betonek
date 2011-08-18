@@ -12,7 +12,7 @@ div.bv_comment { border: 1px solid #aaa; margin: 20px 0; max-width: 700px; }
 div.bvc_header { background: scroll #aaa url("../gfx/comment.png") 5px 50% no-repeat; padding: 3px 5px 3px 45px; }
 span.bvc_user a { color: #fff; font-weight: bold; }
 span.bvc_date { display: block; color: #eee; font-size: smaller; }
-div.bvc_content { padding: 15px; font-family: serif; white-space: pre-wrap; }
+div.bvc_content { padding: 15px; font-family: serif; white-space: pre-wrap; background-color: #eee; }
 
 #bv_write_comment { width: 100%; max-width: 700px; height: 150px; }
 #bv_write_comment_button { display: block; }

@@ -20,7 +20,7 @@
 {{if owners.length}}
 	<ul>
 	{{each owners}}
-		<li><a class="user" href="mailto:${$value.user_email}">${$value.user}</a></li>
+		<li><a class="user" href="mailto:${$value.user_email}?subject=[Biblioteka] Pytanie o '${title}' (${author})" title="Napisz maila!">${$value.user}</a></li>
 	{{/each}}
 	</ul>
 {{else}}
@@ -51,7 +51,7 @@
 	<div class="bv_comment ui-corner-all">
 		<div class="bvc_header">
 			<span class="bvc_user">
-				<a href="mailto:${$value.user_email}">${$value.user}</a>
+				<a href="mailto:${$value.user_email}?subject=[Biblioteka] Twój komentarz do '${title}' (${author})">${$value.user}</a>
 			<span>
 			<span class="bvc_date">${$value.date}<span>
 		</div>

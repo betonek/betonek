@@ -23,9 +23,10 @@ var main = function()
 
 		<div id="subl_bottom">
 			<ul>
-				<li class="first"><a href="#">Przeglądaj</a></li>
-				<li><a href="#">Najlepsze</a></li>
-				<li class="last"><a href="#">Najnowsze</a></li>
+				<li class="first"><a href="search.php#q=">Wszystkie</a></li>
+				<li><a href="#">Losowe</a></li>
+				<li><a href="#">Najnowsze</a></li>
+				<li class="last"><a href="#">Najlepsze</a></li>
 			</ul>
 		</div>
 	</td>
@@ -36,6 +37,7 @@ var main = function()
 		<div id="subr_top">
 			<ul>
 				<li class="first"><a href="#">Książki</a></li>
+				<li><a href="#">Audiobooki</a></li>
 				<li><a href="#">Muzyka</a></li>
 				<li class="last"><a href="#">Film</a></li>
 			</ul>
@@ -56,12 +58,14 @@ var main = function()
 </div>
 
 <div id="index_links">
-	<b>...lub przeglądaj ręcznie:</b>
+	<b>Wpisz szukane hasło i wciśnij Enter lub kliknij w czarne pole, aby przeglądać Bibliotekę.</b>
+	<!--
 	<ul>
 		<li><a href="#">Najlepsze</a></li>
 		<li><a href="#">Najnowsze</a></li>
 		<li><a href="#">Losowe</a></li>
 	</ul>
+	//-->
 </div>
 
 <?php require "footer.php" ?>

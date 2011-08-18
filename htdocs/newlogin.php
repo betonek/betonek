@@ -67,7 +67,7 @@ if ($_POST["email"]) {
 	</fieldset>
 
 	<span class="info">
-	Wypełnij wszystkie pola i kliknij "Utwórz". Gdy system zaakceptuje zgłoszenie poczekaj aż
+	Wypełnij wszystkie pola i kliknij "Utwórz". Gdy system zaakceptuje zgłoszenie poczekaj, aż
 	Administrator aktywuje Twoje konto. Otrzymasz wtedy wiadomość e-mail z powiadomieniem.
 	</span>
 

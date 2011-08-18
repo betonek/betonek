@@ -2,6 +2,7 @@ body {
 	margin: 0;
 	font-size: 13px;
 	line-height: 17px;
+/*	min-width: 1200px; */
 }
 
 body, td, a, p { font-family: arial,sans-serif; }
@@ -53,7 +54,7 @@ span.errmsg { color: #f00; }
 #userbar ul li.uba_I { border-left: 1px solid black; padding: 0 5px 0 0; }
 
 /* index links */
-#index_links { width: 100%; min-width: 950px; margin-top: 20px; text-align: center; }
+#index_links { width: 100%; margin-top: 10%; text-align: center; }
 #index_links * { margin: 0; padding: 0; font-size: small; }
 #index_links ul { list-style: none; margin: 15px 0; }
 #index_links ul li { display: inline; margin-left: 10px; }
@@ -72,7 +73,7 @@ span.errmsg { color: #f00; }
 #searchutils_big { margin-top: 10%; width: 100%; height: 250px; min-width: 950px; }
 #searchutils_big * { margin: 0; padding: 0; }
 
-#searchutils_big table { width: 100%; height: 250px; border-spacing: 0; }
+#searchutils_big table { width: 100%; height: 250px; border-spacing: 0; font-size: small; }
 #sub_left { width: 40%; }
 #sub_middle { width: 152px; background: scroll white url("../gfx/b4.png") 0 25px no-repeat; }
 
@@ -81,7 +82,7 @@ span.errmsg { color: #f00; }
 	position: relative; text-align: center; }
 	#subl_middle img { position: relative; top: 50px; }
 	#sublm_name { position: relative; top: 60px; font-size: 16px; color: #ccc; }
-#subl_bottom { visibility: hidden; height: 25px; float: right; }
+#subl_bottom { height: 25px; float: right; }
 	#subl_bottom ul { list-style: none; }
 	#subl_bottom ul li { display: inline; float: right; }
 	#subl_bottom a { display: block; width: 100px; color: white; line-height: 25px;
@@ -92,7 +93,7 @@ span.errmsg { color: #f00; }
 	#subl_bottom li.last a { background: scroll black url("../gfx/b3.png") 0 0 no-repeat; }
 	#subl_bottom a:hover { text-decoration: underline; }
 
-#subr_top { visibility: hidden; height: 25px; position: relative; left: -30px; }
+#subr_top { height: 25px; position: relative; left: -30px; }
 	#subr_top ul { list-style: none; }
 	#subr_top ul li { display: inline; float: left; }
 	#subr_top a { display: block; width: 100px; color: white; line-height: 25px;

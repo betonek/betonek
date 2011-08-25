@@ -45,13 +45,13 @@
 {{if comments.length}}
 <hr />
 <div class="bv_comments">
-	<h3>Komentarze</h3>
+	<h3>Recenzje</h3>
 
 	{{each comments}}
 	<div class="bv_comment ui-corner-all">
 		<div class="bvc_header">
 			<span class="bvc_user">
-				<a href="mailto:${$value.user_email}?subject=[Biblioteka] Twój komentarz do '${title}' (${author})">${$value.user}</a>
+				<a href="mailto:${$value.user_email}?subject=[Biblioteka] Twoja recenzja do '${title}' (${author})">${$value.user}</a>
 			<span>
 			<span class="bvc_date">${$value.date}<span>
 		</div>
@@ -63,11 +63,11 @@
 
 <hr />
 <div class="bv_write">
-	<h3>Napisz swój komentarz</h3>
+	<h3>Napisz swoją recenzję</h3>
 
 	<textarea id="bv_write_comment"></textarea>
 	<button id="bv_write_comment_button">Wyślij</button>
-	<p>Pisząc nowy komentarz do tego samego tytułu zastąpisz stary</p>
+	<p>Pisząc nową recenzję do tego samego tytułu zastąpisz starą</p>
 </div>
 
 </span>

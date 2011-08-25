@@ -1,7 +1,6 @@
 <?php
 
 require "../includes/lib/lib.php";
-require "../includes/functions.php";
 
 lib_jsuse("search.js");
 lib_jsuse("bookview.js");

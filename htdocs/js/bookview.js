@@ -8,7 +8,7 @@ title_id: undefined,   /** currently viewed title */
 /** Initialize Book View
  * @param root        DOM node to draw in
  */
-init: function(root, title_id, event_name)
+init: function(root)
 {
 	BV.$root = $(root);
 },

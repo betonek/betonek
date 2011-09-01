@@ -1,0 +1,99 @@
+<script id="tpl_add_step1" type="text/x-jquery-tmpl">
+<span class="ba">
+<fieldset class="ba">
+	<legend>Dodaj <span id="ba1_typename">${typename}</span> - krok 1/3</legend>
+
+	<table>
+		<tr>
+			<td>Co dodajesz?</td>
+			<td>
+				<select id="ba1_type">
+					<option value="book">książka</option>
+					<option value="audiobook">audiobook (lub konferencje itp.)</option>
+					<option value="audio">muzyka</option>
+					<option value="film">film</option>
+				</select>
+			</td>
+		</tr>
+
+		<tr>
+			<td><span id="ba1_author_label">Autor</span></td>
+			<td>
+				<input type="text" id="ba1_author" value="${author}"/>
+				<div class="ba-hint">
+					Zacznij od nazwiska, np. "Mickiewicz, Adam"
+				</div>
+			</td>
+		</tr>
+		<tr>
+			<td>Tytuł</td>
+			<td>
+				<input type="text" id="ba1_title" value="${title}"/>
+				<div class="ba-hint">
+					Np. "Dziady, cz. 3"
+				</div>
+			</td>
+		</tr>
+		<tr>
+			<td></td>
+			<td>
+				<input type="submit" id="ba1_next" value="Mam to!" />
+			</td>
+		</tr>
+		</table>
+
+		<a href="index.php">Anuluj</a>
+</fieldset>
+
+<span class="info">
+	Postaraj się wybrać autora i tytuł z podpowiedzi, które pojawią się w trakcie pisania.<br />
+	Jeśli danej pozycji nie ma jeszcze w Bibliotece, wprowadź nowe dane wg podanego wzoru.
+</span>
+
+</span>
+</script>
+
+<script id="tpl_add_step2" type="text/x-jquery-tmpl">
+<span class="ba">
+<fieldset class="ba">
+	<legend>Dodaj ${typename} - krok 2/3</legend>
+
+	<div class="ba_header">
+		<img class="ba_icon" src="gfx/icon-${type}.png" />
+		<h1>${title}</h1>
+		<h3>${author}</h3>
+	</div>
+
+	<span id="ba_ctl">
+		<input type="submit" id="ba2_back" value="&lt; &lt; Popraw" />
+		<input type="submit" id="ba2_next" value="Dodaj &gt; &gt;" /><br /><br />
+		<a href="index.php">Anuluj</a>
+	</span>
+	<span id="ba_ctl2" style="display: none">
+		Proszę czekać...
+	</span>
+</fieldset>
+
+<span class="info">
+	Powyżej widzisz podgląd pozycji, którą dodajesz. Upewnij się, że wszystko w porządku i kliknij "Dodaj" aby
+	zaktualizować bazę danych Biblioteki.
+</span>
+
+</span>
+</script>
+
+<script id="tpl_add_step3" type="text/x-jquery-tmpl">
+<span class="ba">
+<fieldset class="ba">
+	<legend>Dodaj ${typename} - krok 3/3</legend>
+
+	<div class="ba_success">
+		Dodane!
+	</div>
+
+	<input type="submit" id="ba3_next" value="Dodaj następne &gt; &gt;" /><br /><br />
+	<a href="search.php?q=${title}">Zakończ</a>
+</fieldset>
+
+</span>
+</script>

@@ -15,6 +15,6 @@ var main = function()
 }
 </script>
 
-<div id="addbox" class="loginbox formbox">
+<div id="addbox" class="formbox">
 </div>
 <?php require "footer.php" ?>

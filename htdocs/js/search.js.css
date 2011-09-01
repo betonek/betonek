@@ -1,0 +1,10 @@
+#sr_acc ul { padding: 0 15px; }
+
+#sr_acc li { padding: 0 0 3px 0; }
+#sr_acc li:hover { cursor: pointer; }
+#sr_acc li:hover span { color: #000; }
+
+.sr_title { font-style: italic; color: #444; display: block; padding: 0; margin: 0; }
+.sr_author { font-size: small; color: #888; position: relative; top: -3px; }
+
+#sr_acc li.sr_selected span { color: #000; text-decoration: underline; }

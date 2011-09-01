@@ -376,14 +376,22 @@ function title_add($title, $type, $author_id)
  */
 function item_add($title_id)
 {
-	$title_id = intval($title_id);
+	$d = array(intval($title_id), Session::get("uid"));
+
+	/* check if the user already has this title in his items */
+	$o = SQL::one("
+		SELECT id FROM owners
+		WHERE title_id=%d AND user_id=%d",
+		$d);
+
+	if ($o)
+		return $o["id"];
 
 	/* SQL::run() returns last insert id for insert queries */
 	return SQL::run(
 		"INSERT INTO owners SET
-			title_id=%u,
-			user_id=%u",
-		array($title_id, Session::get("uid")));
+		title_id=%u, user_id=%u",
+		$d);
 }
 
 /** Deletes item from users library
@@ -422,15 +430,42 @@ function author_search($query)
 	$query = str_replace(array("\"", "'", "<", ">"), "", $query);
 
 	$authors = SQL::run(
-		"SELECT
+		"SELECT DISTINCT
 			id AS author_id, name AS author
 		FROM
 			authors
-		WHERE name LIKE '%%%s%%'", $query);
+		WHERE name LIKE '%s%%'", $query);
 
 	return array(
 		"query"   => $query,
 		"authors" => $authors
+	);
+}
+
+/** Fetch all titles of given author
+ * @param author_id   author id
+ */
+function author_titles($author_id, $type)
+{
+	$author_id = intval($author_id);
+
+	if ($type)
+		$addq = "AND type='%s' ";
+
+	$titles = SQL::run(
+		"SELECT DISTINCT
+			id AS title_id, title, type
+		FROM
+			titles
+		WHERE
+			author_id=%d
+			$addq",
+		array($author_id, $type));
+
+	return array(
+		"author_id" => $author_id,
+		"type"      => $type,
+		"titles"    => $titles
 	);
 }
 

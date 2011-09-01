@@ -21,9 +21,6 @@ a.user {
 
 /*************************************/
 
-fieldset { padding: 15px; margin: 15px; border: 1px solid #ccc; text-align: center; }
-fieldset legend { font-size: 15px; padding: 0 15px; }
-
 span.info { display: block; display: inline-block;
 	border: 1px solid #ccc; font-style: italic; letter-spacing: 1px;
 	font-size: 14px; line-height: 20px; color: #555; text-align: justify;
@@ -32,8 +29,12 @@ span.info { display: block; display: inline-block;
 
 span.errmsg { color: #f00; }
 
-.formbox table { width: 100%; padding: 10px; }
-.formbox table td:first-child { width: 30%; text-align: right; padding-right: 15px; }
+/* form box */
+.formbox { width: 50%; min-width: 400px; margin: 10% auto 0 auto; }
+.formbox fieldset { padding: 15px; margin: 15px; border: 1px solid #ccc; text-align: center; }
+.formbox fieldset legend { font-size: 18px; padding: 0 15px; font-weight: bold; color: #999; }
+.formbox table { width: 100%; padding: 10px; border-spacing: 0 10px; }
+.formbox table td:first-child { width: 30%; text-align: right; padding-right: 15px; font-weight: bold; }
 .formbox input { border: 1px solid #ccc; margin: 3px; }
 .formbox input:focus { border-color: #fb8; }
 
@@ -58,9 +59,6 @@ span.errmsg { color: #f00; }
 #index_links * { margin: 0; padding: 0; font-size: small; }
 #index_links ul { list-style: none; margin: 15px 0; }
 #index_links ul li { display: inline; margin-left: 10px; }
-
-/* login box */
-.loginbox { width: 35%; min-width: 400px; margin: 10% auto 0 auto; }
 
 /* search elements */
 #searchterm { height: 40px; width: 75%; font-size: 20px; }

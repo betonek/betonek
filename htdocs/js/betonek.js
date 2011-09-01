@@ -64,5 +64,11 @@ setparam: function(name, value)
 
 	/* store */
 	window.location.hash = '#' + hash.replace(/^&/, '');
+},
+
+tmpl: function($dest, $tpl, data)
+{
+	$dest.empty();
+	$tpl.tmpl(data).appendTo($dest);
 }
 };

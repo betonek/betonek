@@ -44,7 +44,7 @@ function rpc_title_comment($p)
 	return res(title_comment($p["title_id"], $p["comment"]));
 }
 
-function rpc_item_add_final($p)
+function rpc_item_add($p)
 {
 	$item_id = 0;
 	$title_id = intval($p["title_id"]);
@@ -78,6 +78,11 @@ function rpc_item_add_final($p)
 function rpc_author_search($p)
 {
 	return res(author_search($p["query"]));
+}
+
+function rpc_author_titles($p)
+{
+	return res(author_titles($p["author_id"], $p["type"]));
 }
 
 function rpc_item_del($p)

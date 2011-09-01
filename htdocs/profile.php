@@ -32,7 +32,7 @@ $email = Session::get("email");
 
 ?>
 
-<div class="loginbox formbox">
+<div class="formbox">
 	<fieldset>
 		<legend>Ustawienia konta</legend>
 

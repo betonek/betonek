@@ -85,7 +85,7 @@ reload: function()
 
 add: function()
 {
-	$.rpc("item_add_final", { title_id: BV.title_id });
+	$.rpc("item_add", { title_id: BV.title_id });
 	BV.reload();
 },
 

@@ -1,0 +1,22 @@
+div.ba-hint {
+	font-size: small;
+	color: #888;
+	font-style: italic;
+	padding: 0 10px 10px 5px;
+	text-align: justify;
+}
+
+div.ba_header { height: 150px; padding: 10px 20px 20px 20px; text-align: left; line-height: 0.9; }
+img.ba_icon { float: left; border: none; margin: 0 20px 20px 0; }
+
+div.ba_success{
+	margin: 35px auto;
+	padding: 10px 10px 10px 65px;
+	line-height: 60px;
+	font-size: 18px;
+	font-weight: bold;
+	width: 200px;
+	background: scroll transparent url("../gfx/icon-yes.png") 10px 50% no-repeat;
+}
+
+

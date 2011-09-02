@@ -22,8 +22,7 @@ rpc: function(method, args, cb, errcb)
 /** Regular expression for matching hash/GET parameter */
 _pre: function(name)
 {
-	/* FIXME: handle empty p, eg ...&p=&a=blah */
-	return RegExp('(^|&)' + name + '=' + '(.+?)(&.*|$)');
+	return RegExp('(^|&)' + name + '=' + '(.*?)(&.*|$)');
 },
 
 /** Returns a parameter value */
@@ -42,10 +41,10 @@ getparam: function(name)
 	};
 
 	/* first try URL hash */
-	val = extract(window.location.hash);
+	val = extract(window.location.hash, true);
 
 	/* otherwise URL GET param */
-	if (!val)
+	if (val == undefined)
 		val = extract(window.location.search);
 
 	return val;

@@ -34,7 +34,6 @@ step1: function()
 
 	/* provide author and title autocompletion */
 	$("#ba1_author").autocomplete({
-		autofocus: true,
 		delay: 0,
 		source: BA.authors_src,
 		change: BA.step1_authorchanged
@@ -45,11 +44,13 @@ step1: function()
 	});
 
 	/* fill author autocompletion list */
-	$.rpc("author_search", {}, function(d) {
-		BA.authors = d.authors;
-		$.each(d.authors, function(k, v) { BA.authors_src.push(v.author); });
-		$("#ba1_author").autocomplete("option", "source", BA.authors_src);
-	});
+	BA.step1_updateauthors();
+
+	/* focus input */
+	if (!BA.title.author)
+		$("#ba1_author").focus();
+	else
+		$("#ba1_title").focus();
 
 	/* submit hooks */
 	$("#ba1_next").click(function()
@@ -129,6 +130,19 @@ step1_authorchanged: function()
 	BA.step1_updatetitles();
 },
 
+/* update author autocompletions */
+step1_updateauthors: function()
+{
+	BA.authors = [];
+	BA.authors_src = [];
+
+	$.rpc("author_search", {}, function(d) {
+		BA.authors = d.authors;
+		$.each(d.authors, function(k, v) { BA.authors_src.push(v.author); });
+		$("#ba1_author").autocomplete("option", "source", BA.authors_src);
+	});
+},
+
 /* update title autocompletions */
 step1_updatetitles: function()
 {
@@ -168,6 +182,8 @@ step2: function()
 {
 	B.tmpl(BA.$root, $("#tpl_add_step2"), BA.title);
 
+	$("#ba2_next").focus();
+
 	$("#ba2_back").click(BA.step1);
 	$("#ba2_next").click(function()
 	{
@@ -183,6 +199,9 @@ step2: function()
 step3: function()
 {
 	B.tmpl(BA.$root, $("#tpl_add_step3"), BA.title);
+
+	$("#ba3_next").focus();
+
 	$("#ba3_next").click(function()
 	{
 		BA.step1_updatetitles();

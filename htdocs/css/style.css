@@ -2,7 +2,7 @@ body {
 	margin: 0;
 	font-size: 13px;
 	line-height: 17px;
-/*	min-width: 1200px; */
+	min-width: 1000px;
 }
 
 body, td, a, p { font-family: arial,sans-serif; }
@@ -71,9 +71,10 @@ span.errmsg { color: #f00; }
 #searchutils_big { margin-top: 10%; width: 100%; height: 250px; min-width: 950px; }
 #searchutils_big * { margin: 0; padding: 0; }
 
-#searchutils_big table { width: 100%; height: 250px; border-spacing: 0; font-size: small; }
+#searchutils_big table { width: 100%; height: 250px; border-spacing: 0; font-size: small;
+	background: scroll transparent url("../gfx/shadow.png") 0 225px repeat-x; }
 #sub_left { width: 40%; }
-#sub_middle { width: 152px; background: scroll white url("../gfx/b4.png") 0 25px no-repeat; }
+#sub_middle { width: 152px; background: scroll transparent url("../gfx/b4.png") 0 25px no-repeat; }
 
 #subl_top { height: 25px; }
 #subl_middle { height: 200px; background: scroll #0048d8 url("../gfx/b5.png") 0 0 repeat-x;
@@ -83,49 +84,47 @@ span.errmsg { color: #f00; }
 #subl_bottom { height: 25px; float: right; }
 	#subl_bottom ul { list-style: none; }
 	#subl_bottom ul li { display: inline; float: right; }
-	#subl_bottom a { display: block; width: 100px; color: white; line-height: 25px;
-		text-align: center; font-weight: bold; text-decoration: none;
-		background: scroll black url("../gfx/b1.png") 0 0 no-repeat; padding-left: 17px; }
+	#subl_bottom a { display: block; width: 90px; color: white; line-height: 25px;
+		text-align: center; font-weight: bold; text-decoration: none; font-size: 12px;
+		background: scroll transparent url("../gfx/b1.png") 0 0 no-repeat; padding-left: 17px; }
 	#subl_bottom li.first a { background: scroll transparent url("../gfx/b2.png") 0 0 no-repeat;
-		width: 129px; padding-left: 5px; }
-	#subl_bottom li.last a { background: scroll black url("../gfx/b3.png") 0 0 no-repeat; }
+		width: 119px; padding-left: 5px; }
+	#subl_bottom li.last a { background: scroll transparent url("../gfx/b3.png") 0 0 no-repeat; }
 	#subl_bottom a:hover { text-decoration: underline; }
 
 #subr_top { height: 25px; position: relative; left: -30px; }
 	#subr_top ul { list-style: none; }
 	#subr_top ul li { display: inline; float: left; }
-	#subr_top a { display: block; width: 100px; color: white; line-height: 25px;
-		text-align: center; font-weight: bold; text-decoration: none;
-		background: scroll black url("../gfx/b1.png") 0 0 no-repeat; padding-left: 17px; }
+	#subr_top a { display: block; width: 90px; color: white; line-height: 25px;
+		text-align: center; font-weight: bold; text-decoration: none; font-size: 12px;
+		background: scroll transparent url("../gfx/b1.png") 0 0 no-repeat; padding-left: 17px; }
 	#subr_top li.last a { background: scroll transparent url("../gfx/b2.png") 0 0 no-repeat;
-		width: 129px; padding-left: 5px; }
-	#subr_top li.first a { background: scroll black url("../gfx/b3.png") 0 0 no-repeat; }
+		width: 119px; padding-left: 5px; }
+	#subr_top li.first a { background: scroll transparent url("../gfx/b3.png") 0 0 no-repeat; }
 	#subr_top a:hover { text-decoration: underline; }
 #subr_middle { height: 200px; background: scroll #00246c url("../gfx/b6.png") 0 0 repeat-x; position: relative; }
+	#subrm_box { position: absolute; top: 80px; height: 40px; width: 90%; }
 #subr_bottom { height: 25px; }
 
-#subrm_box { position: absolute; top: 80px; height: 40px; width: 90%; }
-
 /********** search.php: small search utils, etc */
-#searchutils_small { margin-top: 15px; width: 100%; height: 100px; min-width: 950px; }
+#searchutils_small { margin-top: 15px; width: 100%; height: 115px; min-width: 950px; }
 #searchutils_small * { margin: 0; padding: 0; }
 
-#searchutils_small table { width: 100%; height: 100px; border-spacing: 0; }
-#sus_left { width: 40%; }
-#sus_middle { width: 85px; background: scroll white url("../gfx/b9.png") 0 0 no-repeat; }
+#searchutils_small table { width: 100%; height: 120px; border-spacing: 0; position: relative; top: -15px;
+	background: scroll transparent url("../gfx/shadow.png") 0 105px repeat-x; }
 
-#susl_middle { height: 100px; background: scroll #0048d8 url("../gfx/b7.png") 0 0 repeat-x;
-	position: relative; text-align: center; }
-	#susl_middle img { position: relative; top: 25px; }
-	#suslm_name { position: relative; top: 30px; font-size: 16px; }
+#sus_left { width: 40%; }
+	#susl_middle { height: 100px; background: scroll #0048d8 url("../gfx/b7.png") 0 0 repeat-x;
+		position: relative; text-align: center; }
+		#susl_middle img { position: relative; top: 25px; }
+		#suslm_name { position: relative; top: 30px; font-size: 16px; color: #ccc; }
+
+#sus_middle { width: 85px; }
+	#susm_middle { height: 100px; background: scroll #0048d8 url("../gfx/b9.png") 0 0 no-repeat; }
 
 #susr_middle { height: 100px; background: scroll #00246c url("../gfx/b8.png") 0 0 repeat-x; }
+	#susrm_box { position: relative; top: 30px; height: 40px; width: 90%; }
+	#susrm_count { position: relative; top: 38px; color: #aaa; font-size: 12px; }
 
-#susrm_box { position: relative; top: 30px; height: 40px; width: 90%; }
-#susrm_count { position: relative; top: 38px; color: #aaa; font-size: 12px; }
-#suslm_name { color: #ccc; }
-
-	#sw-results { position: absolute; left: 0; top: 145px; bottom: 0; width: 25%; padding: 10px 1%; }
-	#sw-bookview { padding: 10px 1% 10px 29%; }
-
-
+#sw-results { position: absolute; left: 0; top: 145px; bottom: 0; width: 25%; padding: 10px 1%; }
+#sw-bookview { padding: 10px 1% 10px 29%; }

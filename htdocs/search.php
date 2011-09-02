@@ -97,7 +97,9 @@ var main = function()
 		</div>
 	</td>
 
-	<td id="sus_middle">&nbsp;</td>
+	<td id="sus_middle">
+		<div id="susm_middle">&nbsp;</div>
+	</td>
 
 	<td id="sus_right">
 		<div id="susr_middle">

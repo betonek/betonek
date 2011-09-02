@@ -23,10 +23,9 @@ var main = function()
 
 		<div id="subl_bottom">
 			<ul>
-				<li class="first"><a href="search.php#q=">Wszystkie</a></li>
+				<li class="first"><a href="#">Najlepsze</a></li>
 				<li><a href="#">Losowe</a></li>
-				<li><a href="#">Najnowsze</a></li>
-				<li class="last"><a href="#">Najlepsze</a></li>
+				<li class="last"><a href="search.php#q=">Przeglądaj</a></li>
 			</ul>
 		</div>
 	</td>

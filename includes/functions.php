@@ -128,18 +128,29 @@ function is_admin()
 
 function draw_menu($menu, $addsep = false)
 {
-	$i = 0;
-	$str = "";
+	/* find currently selected menu position */
+	$urls = array_keys($menu);
 	$cur = basename($_SERVER["REQUEST_URI"]);
 
+	$selected = "";
+	foreach ($urls as $url) {
+		if ($url == $cur)
+			$selected = $url;
+	}
+	if (!$selected)
+		$selected = $urls[0];
+
+	/* draw menu */
+	$i = 0;
+	$str = "";
 	foreach ($menu as $url => $descr) {
 		if ($addsep && $i++ > 0)
 			$str .=  "<li class=\"uba_I\"></li>\n";
 
 		$islink = ($url[0] != ":");
-		$iscur = (!$islink || $url == $cur);
+		$issel = (!$islink || $url == $selected);
 
-		if ($iscur)
+		if ($issel)
 			$str .= '<li class="ub_selected">';
 		else
 			$str .= '<li>';

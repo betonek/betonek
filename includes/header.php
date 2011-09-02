@@ -24,15 +24,15 @@ lib_cssuse("ui-lightness/jquery-ui-1.8.12.custom.css");
 
 /* userbar menus */
 $menu1 = array(
-	"index.php"		=> "Szukaj",
-	"my.php"		=> "Twoje zbiory",
-	"add.php"		=> "Dodaj..."
+	"index.php"          => "Szukaj",
+	"search.php?q=+my"   => "Twoje zbiory",
+	"add.php"            => "Dodaj..."
 );
 
 $menu2 = array(
-	":email"		=> Session::get("email"),
-	"profile.php"	=> "Ustawienia konta",
-	"logout.php"	=> "Wyloguj się"
+	":email"             => Session::get("email"),
+	"profile.php"        => "Ustawienia konta",
+	"logout.php"         => "Wyloguj się"
 );
 
 ?>

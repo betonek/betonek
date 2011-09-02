@@ -167,48 +167,79 @@ function draw_menu($menu, $addsep = false)
 }
 
 /***********************************************/
-/* TODO:
- * search authors and merge results somehow into $titles
- * support types param
- * support user_id param
- * support author_id param
- * support empty query
+/** Sort titles according to decreasing relevance */
+function _book_search_sort($t1, $t2)
+{
+	if ($t1["relevance"] == $t2["relevance"])
+		return 0;
+	else if ($t1["relevance"] < $t2["relevance"])
+		return 1;
+	else
+		return -1;
+}
+
+/** Book search
+ * TODO: support type=, owner, author= params
  */
 function book_search($req)
 {
-	/* sanitize the query */
-	$query = str_replace(array("\"", "'", "<", ">"), "", $req["query"]);
+	$qadd = array();
+	$qargs = array();
+	$empty = false;
 
-	if ($req["engine"] == "simple") {
-		$titles = SQL::run(
-			"SELECT
-				type, title, name AS author, titles.id AS title_id, author_id
-			FROM
-				titles
-				LEFT JOIN authors ON titles.author_id = authors.id
-			WHERE
-				title LIKE '%%%s%%';",
-			$query);
-	} else { /* == full */
-		$titles = SQL::run(
-			"SELECT
-				type, title, name AS author, titles.id AS title_id, author_id
-			FROM
-				titles
-				LEFT JOIN authors ON titles.author_id = authors.id
-			WHERE
-				MATCH(title) AGAINST('%s' WITH QUERY EXPANSION);",
-			$query);
+	/* support empty query */
+	if (!$req["query"]) {
+		$query = "";
+		$empty = true;
+	} else {
+		/* sanitize the query */
+		$query = str_replace(array("\"", "'", "<", ">"), "", $req["query"]);
+
+		/* analyze the query - find keywords longer than 2 characters */
+		$ks = explode(' ', str_replace(array(",", ".", "-"), "", $query));
+		$keywords = array();
+		foreach ($ks as $k) {
+			if (strlen($k) > 2)
+				$keywords[] = $k;
+		}
+
+		$qadd[]  = "LOWER(CONCAT(authors.name, ' ', title)) REGEXP '(^| )(%s)( |,|$)'";
+		$qargs[] = join('|', $keywords);
 	}
 
-	/*$authors = SQL::run(
-		"SELECT
-			id AS author_id, name AS author_name
-		FROM
-			authors
-		WHERE
-			MATCH(name) AGAINST('%s' IN BOOLEAN MODE);",
-		$query);*/
+	/* ask the database */
+	$titles = SQL::run(
+		sprintf(
+			"SELECT
+				type, title, name AS author, titles.id AS title_id, author_id
+			FROM
+				titles
+				LEFT JOIN authors ON titles.author_id = authors.id
+			%s
+			LIMIT 1000;",
+			count($qadd) ? "WHERE " . join(' AND ', $qadd) : ""
+		), $qargs);
+
+	/* count keyword occurances for each db result */
+	if (!$empty) {
+		foreach ($titles as $i => $title) {
+			/* concatenate author and title, without interpunction etc. */
+			$s = strtolower(str_replace(array(",", ".", "-"), "", "$title[author] $title[title]"));
+
+			/* compare against the query */
+			$intersect = array_intersect($keywords, explode(' ', $s));
+
+			/* store number of keyword occurances */
+			$r = count($intersect);
+			if ($r > 0)
+				$titles[$i]["relevance"] = $r;
+			else
+				unset($titles[$i]);
+		}
+
+		/* sort according to relevance */
+		usort($titles, "_book_search_sort");
+	}
 
 	return array(
 		"query"   => $query,

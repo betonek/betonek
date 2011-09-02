@@ -1,9 +1,10 @@
 .bv hr { border: none; border-top: 1px dashed #ccc; margin: 10px 0; }
 
-div.bv_header { height: 150px; padding-top: 10px; }
+div.bv_header { height: 150px; padding-top: 0px; }
 	img.bv_icon { float: left; border: none; margin: 0 20px 20px 0; }
 	table.bv_ratings td { width: 130px; }
 	table.bv_ratings { color: #888; font-size: small; }
+	div.bv_header a { display: block; margin: 10px 0 0 9px; }
 
 div.bv_owners h3, div.bv_comments h3, div.bv_write h3 { color: #EB8F00; }
 div.bv_owners li { list-style: none; padding: 2px 0; }

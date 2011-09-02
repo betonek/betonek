@@ -24,9 +24,9 @@ lib_cssuse("ui-lightness/jquery-ui-1.8.12.custom.css");
 
 /* userbar menus */
 $menu1 = array(
-	"index.php"          => "Szukaj",
-	"search.php?q=+my"   => "Twoje zbiory",
-	"add.php"            => "Dodaj..."
+	"index.php"           => "Szukaj",
+	"search.php?q=/moje"  => "Twoje zbiory",
+	"add.php"             => "Dodaj..."
 );
 
 $menu2 = array(

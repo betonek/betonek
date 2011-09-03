@@ -4,14 +4,14 @@
 <div class="bv_header">
 	<img class="bv_icon" src="gfx/icon-${type}.png" />
 	<h1>${title}</h1>
-	<h3>${author}</h3>
+	<h3><a href="search.php?q=/autor:'${author}'">${author}</a></h3>
 
 	<table class="bv_ratings"><tr>
 		<td>Średnia ocena: <div id="bv_raty_avg"></div></td>
 		<td>Twoja ocena:<div id="bv_raty"></div></td>
 	</tr></table>
 
-	<a href="http://www.google.pl#q=${author} ${title}" target="_blank">Szukaj w Google</a>
+	<a class="bv_gg" href="http://www.google.pl#q=${author} ${title}" target="_blank">Szukaj w Google</a>
 </div>
 
 <hr />

@@ -21,8 +21,8 @@ var search = function()
 	/* update hash param */
 	B.setparam("q", query);
 
-	/* update title */
-	document.title = $(document).data("orig_title");
+	/* use query as the page title */
+	document.title = $(document).data("orig_title") + ": " + query;
 
 	/* send the query */
 	BS.search(query, load_first_title);
@@ -31,9 +31,6 @@ var search = function()
 /** Run when search query comes back */
 var searchresults = function(e, search)
 {
-	/* use query as the page title */
-	document.title = $(document).data("orig_title") + ": " + search.query;
-
 	var result_count = search.titles.length;
 
 	/* update #searchcount */

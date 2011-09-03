@@ -23,9 +23,8 @@ var main = function()
 
 		<div id="subl_bottom">
 			<ul>
-				<li class="first"><a href="#">Najlepsze</a></li>
-				<li><a href="#">Losowe</a></li>
-				<li class="last"><a href="search.php#q=">Przeglądaj</a></li>
+				<li class="first"><a href="search.php?q=/moje">Moje zbiory</a></li>
+				<li class="last"><a href="search.php?q=">Przeglądaj</a></li>
 			</ul>
 		</div>
 	</td>
@@ -35,10 +34,10 @@ var main = function()
 	<td id="sub_right">
 		<div id="subr_top">
 			<ul>
-				<li class="first"><a href="#">Książki</a></li>
-				<li><a href="#">Audiobooki</a></li>
-				<li><a href="#">Muzyka</a></li>
-				<li class="last"><a href="#">Film</a></li>
+				<li class="first"><a href="search.php?q=/książka">Książka</a></li>
+				<li><a href="search.php?q=/audiobook">Audiobook</a></li>
+				<li><a href="search.php?q=/muzyka">Muzyka</a></li>
+				<li class="last"><a href="search.php?q=/film">Film</a></li>
 			</ul>
 		</div>
 

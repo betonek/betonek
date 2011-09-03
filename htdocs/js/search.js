@@ -23,15 +23,39 @@ init: function(root)
  */
 search: function(query, click_first)
 {
-	var typeaggr = {};
+	/* RPC call arguments */
+	var args = {
+		query: query
+	};
+
+	/* parse the query */
+	var extract = function(name)
+	{
+		var m = RegExp('(.*)' + name + "(|:'[^']*'|:[^ ]*)( .*|$)").exec(args.query);
+
+		if (m == null)
+			return undefined;
+
+		args.query = m[1] + m[3];
+		return m[2] ? m[2].substr(1) : true;
+	};
+
+	args.owner  = extract("/moje");
+	args.author = extract("/autor");
+
+	if (extract("/książka"))
+		args.type = "book";
+	if (extract("/audiobook"))
+		args.type = "audiobook";
+	if (extract("/muzyka"))
+		args.type = "audio";
+	if (extract("/film"))
+		args.type = "film";
 
 	/* make new list */
 	BS.$root.empty();
 
-	$.rpc("search", {
-		query: query,
-		engine: "simple"
-	}, function(d) {
+	$.rpc("search", args, function(d) {
 		/* announce search results */
 		$(document).trigger("BS/SearchResult", d);
 
@@ -46,12 +70,6 @@ search: function(query, click_first)
 				.tmpl(v)
 				.data(v)
 				.appendTo("#sr_" + v.type);
-
-			/* per-type data aggregation */
-			if (typeaggr[v.type] == undefined)
-				typeaggr[v.type] = { counter: 1 };
-			else
-				typeaggr[v.type].counter++;
 		});
 
 		/* accordion part to open on init */

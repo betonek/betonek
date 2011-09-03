@@ -167,6 +167,12 @@ function draw_menu($menu, $addsep = false)
 }
 
 /***********************************************/
+/** Parameter value sanitizer */
+function _safeparam($string)
+{
+	return str_replace(array("\"", "'", "<", ">", "(", ")"), "", $string);
+}
+
 /** Sort titles according to decreasing relevance */
 function _book_search_sort($t1, $t2)
 {
@@ -178,23 +184,20 @@ function _book_search_sort($t1, $t2)
 		return -1;
 }
 
-/** Book search
- * TODO: support type=, owner, author= params
- */
+/** Book search */
 function book_search($req)
 {
 	$qadd = array();
 	$qargs = array();
 	$empty = false;
 
+	/* sanitize the query */
+	$query = trim(_safeparam($req["query"]));
+
 	/* support empty query */
-	if (!$req["query"]) {
-		$query = "";
+	if (!$query) {
 		$empty = true;
 	} else {
-		/* sanitize the query */
-		$query = str_replace(array("\"", "'", "<", ">"), "", $req["query"]);
-
 		/* analyze the query - find keywords longer than 2 characters */
 		$ks = explode(' ', str_replace(array(",", ".", "-"), "", $query));
 		$keywords = array();
@@ -205,6 +208,41 @@ function book_search($req)
 
 		$qadd[]  = "LOWER(CONCAT(authors.name, ' ', title)) REGEXP '(^| )(%s)( |,|$)'";
 		$qargs[] = join('|', $keywords);
+	}
+
+	/* support "type" param */
+	if ($req["type"]) {
+		$type = _safeparam($req["type"]);
+
+		$qadd[]  = "type='%s'";
+		$qargs[] = $type;
+	}
+
+	/* support "owner" flag */
+	if ($req["owner"]) {
+		/* fetch all titles owned by uid */
+		$owned_sql = SQL::run("SELECT title_id FROM owners WHERE user_id=%d", Session::get("uid"));
+
+		/* rewrite */
+		$owned = array();
+		foreach ($owned_sql as $t)
+			$owned[] = $t["title_id"];
+
+		if (count($owned) == 0)
+			$owned[] = 0; /* return empty set */
+
+		$qadd[]  = "titles.id IN (%s)";
+		$qargs[] = join(',', $owned);
+	}
+
+	/* support "author" param */
+	if ($req["author"]) {
+		$author = _safeparam($req["author"]);
+
+		$a = SQL::one("SELECT id FROM authors WHERE name='%s';", $author);
+
+		$qadd[]  = "author_id=%d";
+		$qargs[] = intval($a["id"]);
 	}
 
 	/* ask the database */
@@ -401,7 +439,7 @@ function title_comment($title_id, $comment)
  */
 function title_add($title, $type, $author_id)
 {
-	$title = str_replace(array("\"", "'", "<", ">"), "", $title);
+	$title = _safeparam($title);
 
 	/* SQL::run() returns last insert id for insert queries */
 	return SQL::run(
@@ -458,7 +496,7 @@ function item_del($title_id)
  */
 function author_add($name)
 {
-	$name = str_replace(array("\"", "'", "<", ">"), "", $name);
+	$name = _safeparam($name);
 
 	/* SQL::run() returns last insert id for insert queries */
 	return SQL::run("INSERT INTO authors SET name='%s'", $name);
@@ -469,7 +507,7 @@ function author_add($name)
  */
 function author_search($query)
 {
-	$query = str_replace(array("\"", "'", "<", ">"), "", $query);
+	$query = _safeparam($query);
 
 	$authors = SQL::run(
 		"SELECT DISTINCT

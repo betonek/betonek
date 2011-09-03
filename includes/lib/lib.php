@@ -57,8 +57,9 @@ function lib_js()
 {
 	$str = "";
 
-	foreach ($GLOBALS["SCRIPTS"] as $script => $ignore)
-		$str .= "<script type=\"text/javascript\" src=\"$script\"></script>\n";
+	if (isset($GLOBALS["SCRIPTS"]))
+		foreach ($GLOBALS["SCRIPTS"] as $script => $ignore)
+			$str .= "<script type=\"text/javascript\" src=\"$script\"></script>\n";
 
 	$str .= '<script type="text/javascript">' . "\n";
 	$str .= '<!--' . "\n";
@@ -66,15 +67,17 @@ function lib_js()
 
 	$str .= "if (typeof main === \"function\") main();\n";
 
-	foreach ($GLOBALS["ONLOAD"] as $todo)
-		$str .= $todo . ";\n";
+	if (isset($GLOBALS["ONLOAD"]))
+		foreach ($GLOBALS["ONLOAD"] as $todo)
+			$str .= $todo . ";\n";
 
 	$str .= '});' . "\n";
 	$str .= '//-->' . "\n";
 	$str .= '</script>' . "\n";
 
-	foreach ($GLOBALS["FOOTERS"] as $footer)
-		$str .= $footer;
+	if (isset($GLOBALS["FOOTERS"]))
+		foreach ($GLOBALS["FOOTERS"] as $footer)
+			$str .= $footer;
 
 	return $str;
 }

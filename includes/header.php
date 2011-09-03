@@ -25,8 +25,7 @@ lib_cssuse("ui-lightness/jquery-ui-1.8.12.custom.css");
 /* userbar menus */
 $menu1 = array(
 	"index.php"           => "Szukaj",
-	"search.php?q=/moje"  => "Twoje zbiory",
-	"add.php"             => "Dodaj..."
+	"add.php"             => "Dodaj"
 );
 
 $menu2 = array(
@@ -54,7 +53,7 @@ $menu2 = array(
 	</ul>
 
 	<ul id="ub_account">
-		<?php if (is_admin()) echo "<li>Jesteś Adminem!</li>" ?>
+		<?php /*if (is_admin()) echo "<li>Jesteś Adminem!</li>"*/ ?>
 		<?= draw_menu($menu2, true) ?>
 	</ul>
 </div>

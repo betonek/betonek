@@ -56,14 +56,12 @@ var main = function()
 </div>
 
 <div id="index_links">
-	<b>Wpisz szukane hasło i wciśnij Enter lub kliknij w czarne pole, aby przeglądać Bibliotekę.</b>
-	<!--
-	<ul>
-		<li><a href="#">Najlepsze</a></li>
-		<li><a href="#">Najnowsze</a></li>
-		<li><a href="#">Losowe</a></li>
-	</ul>
-	//-->
+	<b>Wpisz szukane hasło i wciśnij Enter lub kliknij w czarne pole, aby przeglądać Bibliotekę. Nowe tytuły możesz
+	dodać klikając w lewym górnym rogu.</b><br /><br />
+
+	Biblioteka jest w fazie "Beta" ;-). Proszę o opinie, sugestie, itp. na maila: <a
+	href="mailto:<?= CFG_ADMIN ?>"><?= CFG_ADMIN ?></a>.
+
 </div>
 
 <?php require "footer.php" ?>

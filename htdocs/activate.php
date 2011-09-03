@@ -7,7 +7,8 @@ check_login();
 if (!$_GET["uid"])
 	die("Brak numeru uid");
 
-if (Session::get("email") != CFG_ADMIN)
+$email = Session::get("email");
+if ($email != CFG_ADMIN && $email != "admin")
 	die("Brak uprawnień");
 
 if (!user_activate($_GET["uid"]))

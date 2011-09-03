@@ -58,3 +58,6 @@ CREATE TABLE IF NOT EXISTS `users` (
   `active` tinyint(1) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_polish_ci;
+
+INSERT INTO `users` (`id`, `email`, `name`, `surname`, `password`, `active`) VALUES
+(1, 'admin', 'admin', 'admin', 'admin', 1);

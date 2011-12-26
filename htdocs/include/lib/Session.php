@@ -68,13 +68,13 @@ class Session
 	/** Public functions **/
 	public static function start()
 	{
-		session_set_save_handler(
+/*		session_set_save_handler(
 			array('Session', '_open'),
 			array('Session', '_close'),
 			array('Session', '_read'),
 			array('Session', '_write'),
 			array('Session', '_destroy'),
-			array('Session', '_gc'));
+			array('Session', '_gc'));*/
 		session_set_cookie_params(0, "/", "", false, false);
 		session_start();
 

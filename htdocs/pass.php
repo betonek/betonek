@@ -1,5 +1,5 @@
 <?php
-require "../includes/lib/lib.php";
+require "include/lib/lib.php";
 
 $TITLE = "Zmień hasło";
 require "header.php";

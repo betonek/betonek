@@ -5,7 +5,7 @@
 
 /* cd to includes/ */
 chdir(dirname(dirname(__FILE__)));
-require "../config.php";
+require "config.php";
 
 /* set logging level */
 if (DEBUG) {
@@ -102,10 +102,10 @@ function lib_jsuse($path)
 {
 	$GLOBALS["SCRIPTS"]["js/$path"] = true;
 
-	if (file_exists("../htdocs/js/$path.html"))
-		$GLOBALS["TEMPLATES"]["../htdocs/js/$path.html"] = true;
+	if (file_exists("../js/$path.html"))
+		$GLOBALS["TEMPLATES"]["../js/$path.html"] = true;
 
-	if (file_exists("../htdocs/js/$path.css"))
+	if (file_exists("../js/$path.css"))
 		$GLOBALS["STYLES"]["js/$path.css"] = true;
 }
 

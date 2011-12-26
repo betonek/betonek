@@ -1,5 +1,5 @@
 <?php
-require "../includes/lib/lib.php";
+require "include/lib/lib.php";
 require_once "functions.php";
 
 lib_cssuse("style.css");

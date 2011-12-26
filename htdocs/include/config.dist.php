@@ -10,7 +10,7 @@ define('DEBUG', true);
 define('CFG_TITLE', "Betonek");
 define('CFG_MAILPREFIX', "[Betonek]");
 define('CFG_ADMIN', "admin@domain.com");
-define('CFG_URL', "http://localhost/betonek/");
+define('CFG_URL', "http://localhoinclude/");
 
 /* MySQL database */
 define('CFG_SQL_HOST', 'localhost');

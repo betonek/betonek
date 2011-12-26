@@ -1,5 +1,5 @@
 <?php
-require "../includes/lib/lib.php";
+require "include/lib/lib.php";
 
 $TITLE = "Szukaj";
 require "header.php";

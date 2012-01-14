@@ -173,11 +173,11 @@ function _safeparam($string)
 	return str_replace(array("\"", "'", "<", ">", "(", ")"), "", $string);
 }
 
-/** Sort titles according to decreasing relevance */
-function _book_search_sort($t1, $t2)
+/** Sort titles according to decreasing relevance and titles */
+function _book_search_sort_relevance($t1, $t2)
 {
 	if ($t1["relevance"] == $t2["relevance"])
-		return 0;
+		return strcmp($t1["title"], $t2["title"]);
 	else if ($t1["relevance"] < $t2["relevance"])
 		return 1;
 	else
@@ -194,19 +194,19 @@ function book_search($req)
 	/* sanitize the query */
 	$query = trim(_safeparam($req["query"]));
 
-	/* support empty query */
 	if (!$query) {
+		/* support empty query */
 		$empty = true;
 	} else {
 		/* analyze the query - find keywords longer than 2 characters */
-		$ks = explode(' ', str_replace(array(",", ".", "-"), "", $query));
+		$ks = explode(' ', str_replace(array(",", ".", "-", ":"), "", $query));
 		$keywords = array();
 		foreach ($ks as $k) {
 			if (strlen($k) > 2)
 				$keywords[] = $k;
 		}
 
-		$qadd[]  = "LOWER(CONCAT(authors.name, ' ', title)) REGEXP '(^| )(%s)( |,|$)'";
+		$qadd[]  = "LOWER(CONCAT(authors.name, ' ', title)) REGEXP '(^| )(%s)( |,|:|$)'";
 		$qargs[] = join('|', $keywords);
 	}
 
@@ -254,7 +254,7 @@ function book_search($req)
 				titles
 				LEFT JOIN authors ON titles.author_id = authors.id
 			%s
-			LIMIT 1000;",
+			ORDER BY title, author LIMIT 1000;",
 			count($qadd) ? "WHERE " . join(' AND ', $qadd) : ""
 		), $qargs);
 
@@ -262,7 +262,7 @@ function book_search($req)
 	if (!$empty) {
 		foreach ($titles as $i => $title) {
 			/* concatenate author and title, without interpunction etc. */
-			$s = strtolower(str_replace(array(",", ".", "-"), "", "$title[author] $title[title]"));
+			$s = strtolower(str_replace(array(",", ".", "-", ":"), "", "$title[author] $title[title]"));
 
 			/* compare against the query */
 			$intersect = array_intersect($keywords, explode(' ', $s));
@@ -275,8 +275,8 @@ function book_search($req)
 				unset($titles[$i]);
 		}
 
-		/* sort according to relevance */
-		usort($titles, "_book_search_sort");
+		/* sort according to relevance and titles */
+		usort($titles, "_book_search_sort_relevance");
 	}
 
 	return array(

@@ -55,6 +55,7 @@ step1: function()
 	/* submit hooks */
 	$("#ba1_next").click(function()
 	{
+		BA.step1_authorchanged();
 		BA.step1_titlechanged();
 
 		if (!BA.title.author || !BA.title.title) {
@@ -114,6 +115,8 @@ step1_typechanged: function()
 /* check if an already existing author has been typed in */
 step1_authorchanged: function()
 {
+	var old_aid = BA.title.author_id;
+
 	/* fetch author data */
 	BA.title.author = $("#ba1_author").val();
 	BA.title.author_id = 0;
@@ -126,8 +129,9 @@ step1_authorchanged: function()
 		}
 	});
 
-	/* try to fetch author's books and update title autocompletions */
-	BA.updatetitles();
+	/* if necessary, try to fetch author's books and update title autocompletions */
+	if (BA.title.author_id != old_aid)
+		BA.updatetitles();
 },
 
 /* update author autocompletions */

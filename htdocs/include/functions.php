@@ -130,22 +130,24 @@ function draw_menu($menu, $addsep = false)
 {
 	/* find currently selected menu position */
 	$urls = array_keys($menu);
-	$cur = basename($_SERVER["REQUEST_URI"]);
+	$cur = basename($_SERVER["PHP_SELF"]);
+
+	/* hack :) */
+	if ($cur == "search.php")
+		$cur = "index.php";
 
 	$selected = "";
 	foreach ($urls as $url) {
 		if ($url == $cur)
 			$selected = $url;
 	}
-	if (!$selected)
-		$selected = $urls[0];
 
 	/* draw menu */
 	$i = 0;
 	$str = "";
 	foreach ($menu as $url => $descr) {
 		if ($addsep && $i++ > 0)
-			$str .=  "<li class=\"uba_I\"></li>\n";
+			$str .=  "<li class=\"uba_I\">&nbsp;</li>\n";
 
 		$islink = ($url[0] != ":");
 		$issel = (!$islink || $url == $selected);

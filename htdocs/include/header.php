@@ -31,6 +31,7 @@ $menu1 = array(
 $menu2 = array(
 	":email"             => Session::get("email"),
 	"profile.php"        => "Ustawienia konta",
+	"help.php"           => "Pomoc",
 	"logout.php"         => "Wyloguj się"
 );
 
@@ -49,7 +50,7 @@ $menu2 = array(
 
 <div id="userbar">
 	<ul id="ub_nav">
-		<?= draw_menu($menu1) ?>
+		<?= draw_menu($menu1, true) ?>
 	</ul>
 
 	<ul id="ub_account">

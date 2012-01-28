@@ -44,21 +44,29 @@ span.errmsg { color: #f00; }
 /*************************************/
 
 /* userbar */
-#userbar { border-bottom: 1px solid #0044d8; width: 100%; height: 25px; }
-#userbar ul { margin: 0; padding: 1px 10px 1px 10px; height: 25px; line-height: 25px; list-style: none; }
-#userbar ul li { display: inline; padding: 0 5px 0 5px; }
+#userbar { border-bottom: 1px solid #888; width: 100%; height: 27px; background-color: #eee; }
+#userbar ul { margin: 0; padding: 1px 10px 1px 10px; height: 27px; line-height: 27px; list-style: none; }
+#userbar ul li { display: inline; padding: 0 1px 0 1px; color: #444; }
+#userbar .ub_selected a, .ub_selected { font-weight: bold; text-decoration: none; color: black; }
 
 #ub_nav { float: left; }
 #ub_account { float: right; text-align: right; }
-
-.ub_selected a, .ub_selected { font-weight: bold; text-decoration: none; color: black; }
-#userbar ul li.uba_I { border-left: 1px solid black; padding: 0 5px 0 0; }
+#userbar ul li.uba_I { border-left: 1px solid #999; margin-left: 9px; }
 
 /* index links */
 #index_links { width: 100%; margin-top: 10%; text-align: center; }
 #index_links * { margin: 0; padding: 0; font-size: small; }
 #index_links ul { list-style: none; margin: 15px 0; }
 #index_links ul li { display: inline; margin-left: 10px; }
+
+#help {
+	width: 750px;
+	border: 1px solid #ddd;
+	margin: 2em auto 2em auto;
+	padding: 2em;
+	background-color: #fafafa;
+	text-align: justify;
+}
 
 /* search elements */
 #searchterm { height: 40px; width: 75%; font-size: 20px; }

@@ -44,7 +44,7 @@ step1: function()
 	});
 
 	/* fill author autocompletion list */
-	BA.step1_updateauthors();
+	BA.updateauthors();
 
 	/* focus input */
 	if (!BA.title.author)
@@ -126,12 +126,12 @@ step1_authorchanged: function()
 		}
 	});
 
-	/* try to fetch author books and update title autocompletions */
-	BA.step1_updatetitles();
+	/* try to fetch author's books and update title autocompletions */
+	BA.updatetitles();
 },
 
 /* update author autocompletions */
-step1_updateauthors: function()
+updateauthors: function()
 {
 	BA.authors = [];
 	BA.authors_src = [];
@@ -144,7 +144,7 @@ step1_updateauthors: function()
 },
 
 /* update title autocompletions */
-step1_updatetitles: function()
+updatetitles: function()
 {
 	BA.titles = [];
 	BA.titles_src = [];
@@ -191,6 +191,7 @@ step2: function()
 		$("#ba_ctl2").show();
 
 		$.rpc("item_add", BA.title, function(d) {
+			BA.title.author_id = d.author_id;
 			BA.step3();
 		});
 	});
@@ -204,7 +205,8 @@ step3: function()
 
 	$("#ba3_next").click(function()
 	{
-		BA.step1_updatetitles();
+		BA.updateauthors();
+		BA.updatetitles();
 		BA.title.title = "";
 		BA.step1();
 	});

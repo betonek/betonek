@@ -17,13 +17,17 @@ init: function(root)
 view: function(title_id)
 {
 	BV.title_id = title_id;
-	BV.$root.empty();
+	BV.$root.empty(); // @1
 
 	if (!title_id)
 		return;
 
 	$.rpc("title_view", { title_id: title_id }, function(d)
 	{
+		/* dont draw if not empty (see @1) */
+		if (!BV.$root.is(":empty"))
+			return;
+
 		$("#tpl_bookview").tmpl(d).appendTo(BV.$root);
 
 		/* attach user rating */

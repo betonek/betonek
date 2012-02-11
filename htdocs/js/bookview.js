@@ -78,8 +78,11 @@ rate: function(mark)
 
 comment: function()
 {
-	$.rpc("title_comment", { title_id: BV.title_id, comment: $("#bv_write_comment").val() });
-	BV.reload();
+	$.rpc("title_comment", { title_id: BV.title_id, comment: $("#bv_write_comment").val() },
+	function(d)
+	{
+		BV.reload();
+	});
 },
 
 reload: function()
@@ -89,13 +92,17 @@ reload: function()
 
 add: function()
 {
-	$.rpc("item_add", { title_id: BV.title_id });
-	BV.reload();
+	$.rpc("item_add", { title_id: BV.title_id }, function(d)
+	{
+		BV.reload();
+	});
 },
 
 del: function()
 {
-	$.rpc("item_del", { title_id: BV.title_id });
-	BV.reload();
+	$.rpc("item_del", { title_id: BV.title_id }, function(d)
+	{
+		BV.reload();
+	});
 }
 };

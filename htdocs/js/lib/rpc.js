@@ -11,6 +11,7 @@ $.rpc = $.rpc || function(method, params, cb, errcb, options)
 		contentType: 'application/json',
 		type: 'POST',
 		url: "rpc.php",
+		cache: false,
 		success: function(data) {
 			if (cb && data.result)
 				cb(data.result, method);

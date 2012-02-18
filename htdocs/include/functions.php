@@ -247,6 +247,11 @@ function book_search($req)
 		$qargs[] = intval($a["id"]);
 	}
 
+	/* support "all" param */
+	if (!$req["all"]) {
+		$qadd[] =  "(SELECT COUNT(*) FROM owners WHERE owners.title_id = titles.id) > 0";
+	}
+
 	/* ask the database */
 	$titles = SQL::run(
 		sprintf(

@@ -52,12 +52,22 @@ search: function(query, click_first)
 	if (extract("/film"))
 		args.type = "film";
 
-	/* make new list */
+	/* make new list @1 */
 	BS.$root.empty();
 
 	$.rpc("search", args, function(d) {
+		/* dont draw if not empty (see @1) */
+		if (!BS.$root.is(":empty"))
+			return;
+
 		/* announce search results */
 		$(document).trigger("BS/SearchResult", d);
+
+		/* nothing found? */
+		if (d.titles.length == 0) {
+			$("#tpl_search_not_found").tmpl(d).appendTo(BS.$root);
+			return;
+		}
 
 		/* attach template */
 		$("#tpl_search_results").tmpl(d).appendTo(BS.$root);
@@ -75,15 +85,25 @@ search: function(query, click_first)
 		/* accordion part to open on init */
 		var acc_start = -1;
 
+		/* number of empty cells */
+		var empty = 0;
+
 		/* count number of titles in each type category */
 		$("#sr_acc ul").each(function(i)
 		{
 			/* number of titles */
 			var count = $(this).find("li").length;
 
+			if (count == 0) {
+				empty++;
+				$(this).prev().remove();
+				$(this).remove();
+				return;
+			}
+
 			/* candidate for acc_start */
 			if (acc_start < 0 && count > 0)
-				acc_start = i;
+				acc_start = i - empty;
 
 			/* set header counter */
 			$("#" + $(this).attr("id") + "_ctr")

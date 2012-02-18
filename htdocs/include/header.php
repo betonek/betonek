@@ -40,6 +40,9 @@ $menu2 = array(
 <head>
 	<title><?= $title ?></title>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<!--[if lt IE 9]>
+	<script src="http://ie7-js.googlecode.com/svn/version/2.1(beta4)/IE9.js"></script>
+	<![endif]-->
 	<?= lib_css() ?>
 </head>
 <body>

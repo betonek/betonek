@@ -1,10 +1,11 @@
 .bv hr { border: none; border-top: 1px dashed #ccc; margin: 10px 0; }
 
-div.bv_header { height: 150px; padding-top: 0px; }
+div.bv_header { min-height: 150px; padding-top: 0px; }
 	img.bv_icon { float: left; border: none; margin: 0 20px 20px 0; }
 	table.bv_ratings td { width: 130px; }
 	table.bv_ratings { color: #888; font-size: small; }
-	div.bv_header h3 a { color: #333; }
+	div.bv_header h1 { line-height: 1.3em; }
+	div.bv_header h3 a { color: #555; }
 	div.bv_header a.bv_gg { display: block; margin: 10px 0 0 15px; }
 
 div.bv_owners h3, div.bv_comments h3, div.bv_write h3 { color: #EB8F00; }
@@ -19,7 +20,7 @@ div.bvc_content { padding: 15px; font-family: serif; white-space: pre-wrap; back
 #bv_write_comment { width: 100%; max-width: 700px; height: 150px; }
 #bv_write_comment_button { display: block; }
 
-div.bvo_ops { padding-left: 22px; line-height: 15px; font-size: small; color: #666; cursor: pointer; }
+div.bvo_ops { padding-left: 22px; line-height: 16px; font-size: small; color: #666; cursor: pointer; }
 div.bvo_ops:hover { text-decoration: underline; }
 #bvo_del { background: scroll transparent url("../gfx/icon-minus.png") 0 50% no-repeat; }
 #bvo_add { background: scroll transparent url("../gfx/icon-plus.png") 0 50% no-repeat; }

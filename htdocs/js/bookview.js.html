@@ -17,12 +17,12 @@
 <hr />
 
 <div class="bv_owners">
-	<h3>Kto ma do pożyczenia?</h3>
+	<h3>Chcesz pożyczyć? Napisz maila!</h3>
 
 {{if owners.length}}
 	<ul>
 	{{each owners}}
-		<li><a class="user" href="mailto:${$value.user_email}?subject=[Biblioteka] Pytanie o '${title}' (${author})" title="Napisz maila!">${$value.user}</a></li>
+		<li><a class="user" href="mailto:${$value.user_email}">${$value.user}</a></li>
 	{{/each}}
 	</ul>
 {{else}}

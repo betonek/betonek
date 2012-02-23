@@ -5,6 +5,10 @@ body {
 	min-width: 1000px;
 }
 
+body.busy {
+	cursor: wait;
+}
+
 body, td, a, p { font-family: arial,sans-serif; }
 
 #templates { display: none; }

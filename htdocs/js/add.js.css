@@ -11,6 +11,8 @@ div.ba_header h1 { line-height: 1.3em; }
 div.ba_header h3 { color: #555; }
 img.ba_icon { float: left; border: none; margin: 0 20px 20px 0; }
 
+#ba_table select, #ba_table input[type='text'] { width: 80%; }
+
 div.ba_success{
 	margin: 35px auto;
 	padding: 10px 10px 10px 65px;

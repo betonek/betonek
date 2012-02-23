@@ -533,6 +533,7 @@ function author_search($query)
 
 /** Fetch all titles of given author
  * @param author_id   author id
+ * @param type        type
  */
 function author_titles($author_id, $type)
 {

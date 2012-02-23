@@ -88,6 +88,8 @@ step1_typesync: function()
 /* update some labels */
 step1_typechanged: function()
 {
+	var old_type = BA.title.type;
+
 	var s = $("#ba1_type option:selected").val();
 	var al, tn;
 
@@ -98,10 +100,10 @@ step1_typechanged: function()
 		al = "Autor";
 		tn = "audiobooka";
 	} else if (s == "audio") {
-		al = "Zespół";
+		al = "Zespół / wykonawca";
 		tn = "muzykę";
 	} else if (s == "film") {
-		al = "Reżyser";
+		al = "Reżyser / ekipa";
 		tn = "film";
 	}
 
@@ -110,6 +112,9 @@ step1_typechanged: function()
 
 	$("#ba1_typename").text(tn);
 	$("#ba1_author_label").text(al);
+
+	if (old_type != BA.title.type)
+		BA.updatetitles();
 },
 
 /* check if an already existing author has been typed in */
@@ -156,12 +161,15 @@ updatetitles: function()
 	if (BA.title.author_id) {
 		$("#ba1_title").attr("disabled", true);
 
-		$.rpc("author_titles", {author_id: BA.title.author_id}, function(d) {
+		$.rpc("author_titles", {
+			author_id: BA.title.author_id,
+			type: BA.title.type
+		}, function(d) {
 			BA.titles = d.titles;
 			$.each(d.titles, function(k, v) { BA.titles_src.push(v.title); });
 			$("#ba1_title").autocomplete("option", "source", BA.titles_src);
 
-		$("#ba1_title").attr("disabled", false);
+			$("#ba1_title").attr("disabled", false);
 		});
 	} else {
 		$("#ba1_title").autocomplete("option", "source", []);

@@ -195,6 +195,7 @@ function book_search($req)
 
 	/* sanitize the query */
 	$query = trim(_safeparam($req["query"]));
+	$query = strtolower($query);
 
 	if (!$query) {
 		/* support empty query */
@@ -240,6 +241,7 @@ function book_search($req)
 	/* support "author" param */
 	if ($req["author"]) {
 		$author = _safeparam($req["author"]);
+		$author = strtolower($author);
 
 		$a = SQL::one("SELECT id FROM authors WHERE name='%s';", $author);
 
